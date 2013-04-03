@@ -67,7 +67,7 @@
                   android:layout_weight="1"
                   android:checked="true"
                   android:onClick="setDebugLogsEnabled"
-                  android:text="Debug Logs" />
+                  android:text="Display Logs" />
           </LinearLayout>
       </LinearLayout>
       

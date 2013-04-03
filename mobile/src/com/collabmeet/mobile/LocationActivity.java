@@ -38,7 +38,6 @@ public class LocationActivity extends FragmentActivity {
 
 	private GoogleMap mMap;
 	private TextView mText;
-	private String members = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,12 +89,15 @@ public class LocationActivity extends FragmentActivity {
 	public void setMapText() {
 		if(mText != null) {
 			String str = "Username = " + app.userName + "\nMeeting ID = " + app.meetingID;
-			str += "\nMembers = " + members;
+			str += "\nMembers = " + app.members;
 			
 			Location l = mMap.getMyLocation();
 			if(l != null) {
 				str += "\nLatitude = " + l.getLatitude() + "\nLongitude = " + l.getLongitude() + "\nAccuracy = " + l.getAccuracy() + " metres";
 			}
+			
+			str += "\nLocation update Count = " + app.locUpdateCount;
+			
 			mText.setText(str);
 		}
 	}
@@ -104,7 +106,7 @@ public class LocationActivity extends FragmentActivity {
 		if(res.endsWith("\n")) {
 			res = res.substring(0, res.length() - 1);
 		}
-		members = res;
+		app.members = res;
 		setMapText();
 	}
 
