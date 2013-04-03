@@ -34,7 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 public class LocationActivity extends FragmentActivity {
 
 	private MobileLocationSource mLocationSource;
-	private CollabMeetApplication app = null;
+	public CollabMeetApplication app = null;
 
 	private GoogleMap mMap;
 	private TextView mText;
@@ -98,6 +98,10 @@ public class LocationActivity extends FragmentActivity {
 			
 			str += "\nLocation update Count = " + app.locUpdateCount;
 			
+			if(app.status.length() > 0) {
+				str += "\nStatus = " + app.status;
+			}
+			
 			mText.setText(str);
 		}
 	}
@@ -106,7 +110,10 @@ public class LocationActivity extends FragmentActivity {
 		if(res.endsWith("\n")) {
 			res = res.substring(0, res.length() - 1);
 		}
+		
 		app.members = res;
+		app.broadcastLocation(mMap.getMyLocation());
+		
 		setMapText();
 	}
 
@@ -129,6 +136,16 @@ public class LocationActivity extends FragmentActivity {
 			ViewGroup textContainer = (ViewGroup) findViewById(R.id.textContainer);
 			textContainer.removeView(mText);
 			mText = null;
+		}
+	}
+	
+	public void setBroadcastLocationEnabled(View v) {
+		if(((CheckBox) v).isChecked()) {
+			app.isBroadcastEnabled = true;
+			app.broadcastLocation(mMap.getMyLocation());
+		}
+		else {
+			app.isBroadcastEnabled = false;
 		}
 	}
 }

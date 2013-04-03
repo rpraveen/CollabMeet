@@ -52,11 +52,17 @@ public class MobileLocationSource implements LocationSource, OnMapLongClickListe
 
 	public void updateLocation(Location uLocation) {
 		if (mListener != null && !mPaused) {
+			/* Update local map */
 			Location location = new Location(uLocation.getProvider());
 			location.setLatitude(uLocation.getLatitude());
 			location.setLongitude(uLocation.getLongitude());
 			location.setAccuracy(uLocation.getAccuracy());
 			mListener.onLocationChanged(location);
+			
+			/* Broadcast location */
+			((LocationActivity)mContext).app.broadcastLocation(location);
+			
+			/* Update display */
 			((LocationActivity)mContext).setMapText();
 		}
 	}
