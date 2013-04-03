@@ -19,12 +19,11 @@ int drawable badge_qld 0x7f020002
 int drawable badge_sa 0x7f020003
 int drawable badge_victoria 0x7f020004
 int drawable badge_wa 0x7f020005
-int drawable banner 0x7f020006
-int drawable btn_red 0x7f020007
-int drawable collab 0x7f020008
-int drawable custom_info_bubble 0x7f020009
-int drawable ic_launcher 0x7f02000a
-int drawable icon 0x7f02000b
+int drawable btn_red 0x7f020006
+int drawable collab 0x7f020007
+int drawable custom_info_bubble 0x7f020008
+int drawable ic_launcher 0x7f020009
+int drawable icon 0x7f02000a
 int id description 0x7f040009
 int id hybrid 0x7f040004
 int id imageView1 0x7f04000a

@@ -138,12 +138,11 @@ containing a value of this type.
         public static final int badge_sa=0x7f020003;
         public static final int badge_victoria=0x7f020004;
         public static final int badge_wa=0x7f020005;
-        public static final int banner=0x7f020006;
-        public static final int btn_red=0x7f020007;
-        public static final int collab=0x7f020008;
-        public static final int custom_info_bubble=0x7f020009;
-        public static final int ic_launcher=0x7f02000a;
-        public static final int icon=0x7f02000b;
+        public static final int btn_red=0x7f020006;
+        public static final int collab=0x7f020007;
+        public static final int custom_info_bubble=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int icon=0x7f02000a;
     }
     public static final class id {
         public static final int description=0x7f040009;
