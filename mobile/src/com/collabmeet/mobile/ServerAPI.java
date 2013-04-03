@@ -19,8 +19,8 @@ import android.os.AsyncTask;
 
 
 public class ServerAPI {
-	//private static String serverURL = "whatscookingserver.herokuapp.com";
-	public static String serverURL = "192.168.0.104:1337";
+	private static String serverURL = "ec2-50-112-192-196.us-west-2.compute.amazonaws.com:1337";
+	//public static String serverURL = "192.168.0.104:1337";
 	private String uri;
 	private List<NameValuePair> nameValuePairs;
 	private LocationActivity locListener = null;
