@@ -143,6 +143,7 @@ public class LocationActivity extends FragmentActivity {
 		if(((CheckBox) v).isChecked()) {
 			app.isBroadcastEnabled = true;
 			app.broadcastLocation(mMap.getMyLocation());
+			setMapText();
 		}
 		else {
 			app.isBroadcastEnabled = false;

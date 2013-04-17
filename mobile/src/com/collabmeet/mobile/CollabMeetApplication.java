@@ -6,6 +6,7 @@ import java.net.InetAddress;
 
 import android.app.Application;
 import android.location.Location;
+import android.os.AsyncTask;
 
 public class CollabMeetApplication extends Application {
 	public String userName = "";
@@ -27,27 +28,50 @@ public class CollabMeetApplication extends Application {
 			return;
 		}
 		
-		try {
-			/* Create new UDP-Socket */
-			DatagramSocket socket = new DatagramSocket();
+		String msg = userName + "," + locUpdateCount + "," + loc.getLatitude() + "," + loc.getLongitude();
+		locUpdateCount++;
+		
+		new BroadcastInBackground().execute(msg, members);
+	}
+	
+	private class BroadcastInBackground extends AsyncTask<String, Void, Boolean> {
 
-			/* Prepare some data to be sent. */
-			String msg = userName + "," + locUpdateCount + "," + loc.getLatitude() + "," + loc.getLongitude();			
-			byte[] buf = msg.getBytes();
-			locUpdateCount++;
+		@Override
+		protected Boolean doInBackground(String... params) {
+			String msg = params[0];
+			String ipAddresses = params[1];
+			
+			try {
+				/* Create new UDP-Socket */
+				DatagramSocket socket = new DatagramSocket();
 
-			for (String ip:members.split(",")) {
-				/* Retrieve the ServerName */
-				InetAddress serverAddr = InetAddress.getByName(ip);
+				/* Prepare some data to be sent. */			
+				byte[] buf = msg.getBytes();
+				
 
-				/* Create UDP-packet with data & destination (url+port) */
-				DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, UDP_RECEIVE_PORT);
+				for (String ip: ipAddresses.split(",")) {
+					System.out.println("Sending location to " + ip);
+					
+					/* Retrieve the ServerName */
+					InetAddress serverAddr = InetAddress.getByName(ip);
 
-				/* Send out the packet */
-				socket.send(packet);
+					/* Create UDP-packet with data & destination (url+port) */
+					DatagramPacket packet = new DatagramPacket(buf, buf.length, serverAddr, UDP_RECEIVE_PORT);
+
+					/* Send out the packet */
+					socket.send(packet);
+				}
+			} catch (Exception e) {
+				status = "UDP transmit error!";
+				e.printStackTrace();
+				return false;
 			}
-		} catch (Exception e) {
-			status = "UDP transmit error!";
+			
+			return true;
+		}
+
+		protected void onPostExecute(Boolean flag) {
+			System.out.println("UDP transmit result: " + flag);
 		}
 	}
 }
