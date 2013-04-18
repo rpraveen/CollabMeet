@@ -1,5 +1,4 @@
 var http = require('http');
-var sys  = require('sys');
 var url = require('url');
 var fs = require('fs');
 
@@ -14,7 +13,7 @@ fs.readFile('files/meetings', 'utf8', function (err,data) {
 });
 
 http.createServer(function (request, response) {
-  sys.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
+  console.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
 
   /* Parse the URL */
   var urlParts = url.parse(request.url, true);
@@ -69,4 +68,4 @@ http.createServer(function (request, response) {
     response.end('Error!\n');
   }
 }).listen(1337);
-sys.log('Server running at port 1337..\n');
+console.log('Server running at port 1337..\n');
