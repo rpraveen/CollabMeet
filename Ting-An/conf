@@ -1,0 +1,11 @@
+name:alice
+ip:127.0.0.1
+port:12344
+
+name:bob
+ip:127.0.0.1
+port:14255
+
+name:charlie
+ip:127.0.0.1
+port:12998
