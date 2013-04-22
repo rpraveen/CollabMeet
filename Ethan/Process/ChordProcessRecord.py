@@ -1,8 +1,3 @@
-'''
-Created on May 19, 2010
-
-@author: antoniot
-'''
 import logging
 import Pyro.core, Pyro.naming,\
        Pyro.errors
