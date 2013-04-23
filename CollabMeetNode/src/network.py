@@ -29,7 +29,7 @@ class Receiver(threading.Thread):
       data = self.cs.recv(1024)
       if not data:  
         break
-      print '[recv] ', data
+      instance.master_thread.heartbeat_time['bob'] = time.time()
 
     print '[close]'
     self.cs.close()
@@ -47,9 +47,8 @@ class ListeningThread(threading.Thread):
     self.sock.listen(5)
     while 1:
       try:
-        print '[listening...]'
         conn, addr = self.sock.accept()     #blocking
-        print '[Connected by', addr, ']'
+        #print '[Connected by', addr, ']'
         Receiver(conn)
       except KeyboardInterrupt:
         sys.exit(1)
@@ -62,7 +61,8 @@ class ConnectingThread(threading.Thread):
     self.start()
 
   def run(self):
-    print "Lname: ", instance.name
+    global connection_list
+    
     """Spawn a thread to connect to each node in the conf list except herself"""
     while len(connection_list.keys()) != (len(instance.nodes) - 1): #except self
       #print 'now:',len(connection_list.keys()), ' ls:',len(nodes)-1
@@ -73,23 +73,27 @@ class ConnectingThread(threading.Thread):
         host = node.ip
         port = int(node.port) 
         if dest_name not in connection_list:
-          print '[try to connect to', dest_name, '...]'
+          #print '[try to connect to', dest_name, '...]'
           s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
           try:
             s.connect((host, port))  
             connection_list[dest_name]=s
-            print '[Connected!]'
+            #print '[Connected!]'
           except:
             time.sleep(1)
             pass
 
-    print '[everyone online :D]'
-    #print connection_list
+    #print '[everyone online :D]'
     #TODO: handle broken conn and update group info  
 
 def send(dst, data):
   global connection_list
-  print '[sending', repr(data), 'to ', dst, '...]'
-  s = connection_list[dst.lower()]
-  s.sendall(data);
-  print '[Sent!]'
+  #print '[sending', repr(data), 'to ', dst, '...]'
+  if dst in connection_list:
+    s = connection_list[dst]
+    s.sendall(data)
+  else:
+    print "Error!", dst, "not in connection list!"
+  
+def get_connection_list():
+  return connection_list
