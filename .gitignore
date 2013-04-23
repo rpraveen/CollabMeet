@@ -16,3 +16,4 @@ WhatsCookingClient/gen/com/facebook/android/R.java
 */R.java
 */.classpath
 facebook/gen/com/facebook/android/R.java
+*.pyc
