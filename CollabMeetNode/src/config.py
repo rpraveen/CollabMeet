@@ -19,5 +19,4 @@ def parse():
       instance.nodes.append(Node(**d))
       instance.curr_master = instance.name
   except:
-    print 'Not master'
     pass

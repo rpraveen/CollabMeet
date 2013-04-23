@@ -1,0 +1,6 @@
+CLI commands:
+send - s:destination_ip:string
+exit - q
+
+Network msg format:
+sender:module:msgtype:...

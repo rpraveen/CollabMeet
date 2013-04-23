@@ -7,7 +7,7 @@ The table is stored in 'files/meetings' for recovery in case of server crash.
 
 HTTP requests processed:
 
-1. http://ec2-50-112-192-196.us-west-2.compute.amazonaws.com:1337/insert?id=123&ip=123.23.45.23
+1. http://ec2-50-112-192-196.us-west-2.compute.amazonaws.com:1337/insert?id=123&ip=alice:123.23.45.23:12344
 
 2. http://ec2-50-112-192-196.us-west-2.compute.amazonaws.com:1337/lookup?id=123
 

@@ -14,6 +14,10 @@ import sys
 import threading
 import time
 import instance
+import master
+import messages
+import copy
+import urllib2
 
 connection_list = dict()
 
@@ -25,11 +29,19 @@ class Receiver(threading.Thread):
     self.start()
 
   def run(self):
-    while 1:
-      data = self.cs.recv(1024)
+    while not instance.has_exited:
+      data = self.cs.recv(1024) #blocking
       if not data:  
         break
-      instance.master_thread.heartbeat_time['bob'] = time.time()
+      print '[recv]', data
+      strs = data.split(':')
+      
+      instance.gmutex.acquire()
+      if strs[instance.MODULE] == 'master':
+        master.handle_message(data, self.cs)
+      else:
+        messages.handle_message(data, self.cs)
+      instance.gmutex.release()
 
     print '[close]'
     self.cs.close()
@@ -44,10 +56,10 @@ class ListeningThread(threading.Thread):
     
   def run(self):
     self.sock.bind((instance.local_ip, instance.listen_port))
-    self.sock.listen(5)
-    while 1:
+    self.sock.listen(5) #blocking
+    while not instance.has_exited:
       try:
-        conn, addr = self.sock.accept()     #blocking
+        conn, addr = self.sock.accept()
         #print '[Connected by', addr, ']'
         Receiver(conn)
       except KeyboardInterrupt:
@@ -62,38 +74,87 @@ class ConnectingThread(threading.Thread):
 
   def run(self):
     global connection_list
-    
-    """Spawn a thread to connect to each node in the conf list except herself"""
-    while len(connection_list.keys()) != (len(instance.nodes) - 1): #except self
-      #print 'now:',len(connection_list.keys()), ' ls:',len(nodes)-1
+    while not instance.has_exited:
       for node in instance.nodes:
         if node.name == instance.name:
+          continue
+        if node.port == '0':
           continue
         dest_name = node.name
         host = node.ip
         port = int(node.port) 
         if dest_name not in connection_list:
-          #print '[try to connect to', dest_name, '...]'
+          print '[try to connect to', dest_name, '...]'
           s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
           try:
-            s.connect((host, port))  
+            s.connect((host, port)) #blocking
+            instance.gmutex.acquire() 
             connection_list[dest_name]=s
-            #print '[Connected!]'
+            instance.gmutex.release()
+            print '[Connected!]', dest_name
           except:
+            print 'Cannot connect to', dest_name
             time.sleep(1)
             pass
-
-    #print '[everyone online :D]'
+      time.sleep(instance.CONN_RETRY_SECS)
     #TODO: handle broken conn and update group info  
 
 def send(dst, data):
   global connection_list
-  #print '[sending', repr(data), 'to ', dst, '...]'
+  msg = instance.name + ":" + data
+  #print '[send]', msg
   if dst in connection_list:
-    s = connection_list[dst]
-    s.sendall(data)
+    try:
+      s = connection_list[dst]
+      s.sendall(msg)
+    except:
+      print "Connection error! Removing", dst
+      remove_peer(dst)
   else:
-    print "Error!", dst, "not in connection list!"
+    print "Error sending message!", dst, "not in connection list!"
+  
   
 def get_connection_list():
-  return connection_list
+  global connection_list
+  connlist = []
+  for peer in connection_list:
+    connlist.append(peer)
+  return connlist
+
+
+def close_connections():
+  global connection_list
+  for peer in connection_list:
+    connection_list[peer].close()
+
+
+def remove_peer(name):
+  global connection_list
+  print 'Removing peer', name
+  if name in connection_list:
+    del connection_list[name]
+  if name in instance.heartbeat_time:
+    del instance.heartbeat_time[name]
+  for index, node in enumerate(instance.nodes):
+    if node.name == name:
+      instance.nodes[index] = instance.nodes[index]._replace(ip = '0.0.0.0')
+      instance.nodes[index] = instance.nodes[index]._replace(port = '0')
+      return
+
+
+def join_meeting():
+  try:
+    url = "http://ec2-50-112-192-196.us-west-2.compute.amazonaws.com:1337/lookup?id=" + str(instance.meeting_id)
+    data = urllib2.urlopen(url).read()  #blocking (with only 1 thread)
+    strs = data.split(':')
+    print "Contacting master (" + strs[0] + ")..."
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((strs[1], int(strs[2])))  #blocking (with only 1 thread)
+    connection_list[strs[0]] = sock
+    send(strs[0], "master:join:" + "password" + ":" + instance.local_ip + ":" + str(instance.listen_port))
+    data = sock.recv(1024)
+    print "Join reply: ", data
+    messages.handle_message(data, sock)
+  except:
+    print "Error! Cannot connect to meeting!"
+    sys.exit(1)

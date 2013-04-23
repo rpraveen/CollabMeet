@@ -9,9 +9,6 @@ import master
 #   main   #
 ############
 
-def join_meeting():
-  pass
-
 def main():  
   if len(sys.argv) != 3: 
     print '<usage> name port'
@@ -24,9 +21,11 @@ def main():
   config.parse()
   
   if instance.curr_master == instance.name:
-    instance.master_thread = master.MasterThread()
+    master.init_master()
   else:
-    join_meeting()
+    network.join_meeting()
+    
+  instance.master_thread = master.MasterThread()
   
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   network.ListeningThread(s)
@@ -34,17 +33,22 @@ def main():
   
   while 1:
     try:
-      command = raw_input('>>> s for send(s:destination_ip:string); q for exit\n')
+      command = raw_input()
       if len(command) == 0:
         continue
       commands = command.split(':')
       #TODO: error check
+      
+      instance.gmutex.acquire()
       if commands[0] == 's':
         network.send(commands[1],commands[2])
-      elif command[0] == 'q': 
-        sys.exit(1)
+      elif command[0] == 'q':
+        instance.has_exited = True
+        network.close_connections()
+        sys.exit(0)
       else:
         print 'This command is not supported'
+      instance.gmutex.release()
     except KeyboardInterrupt:
       sys.exit(1)
 
