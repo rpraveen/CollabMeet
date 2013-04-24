@@ -5,9 +5,8 @@ import sys
 
 def handle_heartbeat(strs):
   instance.curr_master = strs[instance.SENDER]
-  for index, s in enumerate(strs):
-    if index < 3:
-      continue
+  for i in range(4, 4 + int(strs[instance.NODECOUNT])):
+    s = strs[i]
     val = s.split('#')
     d = dict()
     d['name'] = val[0]
@@ -26,5 +25,7 @@ def handle_message(data, sock):
   elif strs[instance.MSGTYPE] == 'joinreject':
     print 'Error! Join rejected'
     sys.exit(1)
+  elif strs[instance.MSGTYPE] == 'mobilelocation':
+    pass
   else:
     print 'Error! Invalid message'

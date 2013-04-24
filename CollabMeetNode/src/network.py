@@ -42,8 +42,6 @@ class Receiver(threading.Thread):
       else:
         messages.handle_message(data, self.cs)
       instance.gmutex.release()
-
-    print '[close]'
     self.cs.close()
 
 

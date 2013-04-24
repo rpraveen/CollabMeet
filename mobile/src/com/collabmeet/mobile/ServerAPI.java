@@ -1,7 +1,12 @@
 package com.collabmeet.mobile;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -64,14 +69,52 @@ public class ServerAPI {
 			HttpContext localContext = new BasicHttpContext();
 			HttpGet httpGet = new HttpGet("http://" + serverURL + uri);
 			String text = null;
+			String ips = "";
+			locListener.app.master = "";
 			try {
 				HttpResponse response = httpClient.execute(httpGet, localContext);
 				HttpEntity entity = response.getEntity();
 				text = getASCIIContentFromEntity(entity);
+				if(text.equals("0.0.0.0")) {
+					return "Error connecting to meeting!";
+				}
+				
+				String str[] = text.split(":");
+				locListener.app.master = str[0];
+				System.out.println("Connecting to master at " + text);
+				Socket s = new Socket(str[1], Integer.parseInt(str[2]));
+				System.out.println("Connected!");
+				
+				OutputStream out = s.getOutputStream();
+			       
+		        PrintWriter output = new PrintWriter(out);
+		        output.print(locListener.app.userName + ":master:join:" + locListener.app.password + ":Mobile:0");
+		        output.flush();
+		        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+		        text = input.readLine();
+		        System.out.println("Master reply: " + text);
+		        
+		        str = text.split(":");
+		        
+		        if(str[2].equals("joinreject")) {
+		        	return "Join rejected by master! Check username/password";
+		        }
+		        
+		        int nodeCount = Integer.parseInt(str[3]);
+		        for(int i = 0; i < nodeCount; i++) {
+		        	String nodeStr[] = (str[i + 4]).split("#");
+		        	if(i > 0) {
+		        		ips += ",";
+		        	}
+		        	ips += nodeStr[2] + ":" + nodeStr[3];
+		        }
+				
+				s.close();
+				
 			} catch (Exception e) {
 				return e.getLocalizedMessage();
 			}
-			return text;
+			return ips;
 		}
 
 		protected void onPostExecute(String results) {

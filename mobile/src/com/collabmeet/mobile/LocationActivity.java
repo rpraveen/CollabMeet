@@ -16,6 +16,9 @@
 
 package com.collabmeet.mobile;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -38,6 +41,9 @@ public class LocationActivity extends FragmentActivity {
 
 	private GoogleMap mMap;
 	private TextView mText;
+	private ServerAPI server;
+	
+	public final int CONFIG_UPDATE_TIME = 10000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +59,8 @@ public class LocationActivity extends FragmentActivity {
 
 		setUpMapIfNeeded();
 		
-		ServerAPI server = new ServerAPI(this);
-		server.sendGET("/config.txt");
+		server = new ServerAPI(this);
+		server.sendGET("/lookup?id=" + app.meetingID);
 	}
 
 	@Override
@@ -89,7 +95,7 @@ public class LocationActivity extends FragmentActivity {
 	public void setMapText() {
 		if(mText != null) {
 			String str = "Username = " + app.userName + "\nMeeting ID = " + app.meetingID;
-			str += "\nMembers = " + app.members;
+			str += "\nMaster = " + app.master + "\nMembers = " + app.members;
 			
 			Location l = mMap.getMyLocation();
 			if(l != null) {
@@ -104,17 +110,6 @@ public class LocationActivity extends FragmentActivity {
 			
 			mText.setText(str);
 		}
-	}
-	
-	public void processServerResults(String res) {
-		if(res.endsWith("\n")) {
-			res = res.substring(0, res.length() - 1);
-		}
-		
-		app.members = res;
-		app.broadcastLocation(mMap.getMyLocation());
-		
-		setMapText();
 	}
 
 	@Override
@@ -147,6 +142,27 @@ public class LocationActivity extends FragmentActivity {
 		}
 		else {
 			app.isBroadcastEnabled = false;
+		}
+	}
+	
+	public void processServerResults(String res) {
+		if(res.endsWith("\n")) {
+			res = res.substring(0, res.length() - 1);
+		}
+		
+		app.members = res;
+		app.broadcastLocation(mMap.getMyLocation());
+		
+		setMapText();
+		
+		Timer timer = new Timer();
+		timer.schedule(new ServerTimerTask(), CONFIG_UPDATE_TIME);
+	}
+	
+	class ServerTimerTask extends TimerTask {
+		@Override
+		public void run() {
+			server.sendGET("/lookup?id=" + app.meetingID);
 		}
 	}
 }

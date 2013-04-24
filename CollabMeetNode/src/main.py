@@ -15,7 +15,8 @@ def main():
     sys.exit(1)
   
   instance.name = sys.argv[1]
-  instance.local_ip = '127.0.0.1'
+  #instance.local_ip = '127.0.0.1'
+  instance.local_ip = '192.168.0.104'
   instance.listen_port = int(sys.argv[2])
   
   config.parse()

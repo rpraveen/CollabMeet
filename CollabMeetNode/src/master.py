@@ -21,7 +21,7 @@ class MasterThread(threading.Thread):
 
 
 def gen_heartbeat_str():
-  data = "node:heartbeat"
+  data = "node:heartbeat:" + str(len(instance.nodes))
   for node in instance.nodes:
     data += ":" + node.name + "#" + node.password + "#" + node.ip + "#" + node.port
   return data
@@ -65,15 +65,22 @@ def init_master():
 def handle_join(strs, sock):
   for index, node in enumerate(instance.nodes):
     if node.name == strs[instance.SENDER] and node.password == strs[3]:
-      instance.nodes[index] = instance.nodes[index]._replace(ip = strs[4])
-      instance.nodes[index] = instance.nodes[index]._replace(port = strs[5])
-      data = gen_heartbeat_str()
-      sock.sendall(instance.name + ":" + data)
-      send_heartbeats() # inform others
+      if strs[4] != 'Mobile':
+        instance.nodes[index] = instance.nodes[index]._replace(ip = strs[4])
+        instance.nodes[index] = instance.nodes[index]._replace(port = strs[5])
+        data = gen_heartbeat_str()
+        sock.sendall(instance.name + ":" + data)
+        send_heartbeats() # inform others
+      else:
+        data = gen_heartbeat_str()
+        sock.sendall(instance.name + ":" + data + "\n")
       return
   reply = "node:joinreject"
   print "Join rejected!"
-  sock.sendall(instance.name + ":" + reply)
+  if strs[4] != "Mobile":
+    sock.sendall(instance.name + ":" + reply)
+  else:
+    sock.sendall(instance.name + ":" + reply + "\n")
 
 
 def handle_heartbeatreply(strs, sock):
@@ -89,4 +96,4 @@ def handle_message(data, sock):
   elif strs[instance.MSGTYPE] == 'heartbeatreply':  
     handle_heartbeatreply(strs, sock)
   else:
-    print 'Error! Invalid message'
+    print 'Error! Invalid message to master'
