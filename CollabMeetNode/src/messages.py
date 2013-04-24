@@ -2,9 +2,15 @@ import instance
 import config
 import network
 import sys
+import master
+import time
 
 def handle_heartbeat(strs):
+  instance.last_heartbeat_rcvd = time.time()
   instance.curr_master = strs[instance.SENDER]
+  if instance.is_master:
+    master.clear_master()
+  instance.nodes = []
   for i in range(4, 4 + int(strs[instance.NODECOUNT])):
     s = strs[i]
     val = s.split('#')
@@ -26,6 +32,9 @@ def handle_message(data, sock):
     print 'Error! Join rejected'
     sys.exit(1)
   elif strs[instance.MSGTYPE] == 'mobilelocation':
-    pass
+    sender = strs[instance.SENDER]
+    latitude = strs[3]
+    longitude = strs[4]
+    #print "Mobile location update: sender:" + sender + " latitude:" + latitude + " longitude:" + longitude
   else:
     print 'Error! Invalid message'

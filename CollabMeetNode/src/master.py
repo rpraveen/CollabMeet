@@ -4,6 +4,7 @@ import time
 import sys
 import network
 import urllib2
+import config
 
 class MasterThread(threading.Thread):
   def __init__(self):
@@ -18,6 +19,18 @@ class MasterThread(threading.Thread):
         instance.gmutex.acquire()
         send_heartbeats()
         instance.gmutex.release()
+      else:
+        node_index = config.get_node_index(instance.name)
+        master_index = config.get_node_index(instance.curr_master)
+        if node_index == master_index:
+          continue
+        elif node_index > master_index:
+          timeout_val = (node_index - master_index) * instance.HEARTBEAT_TIMEOUT
+        else:
+          timeout_val = (len(instance.nodes) + node_index - master_index) * instance.HEARTBEAT_TIMEOUT
+        #print "Master timeout val:", timeout_val
+        if (time.time() - instance.last_heartbeat_rcvd) >= timeout_val:
+          init_master()
 
 
 def gen_heartbeat_str():
@@ -48,6 +61,7 @@ def init_master():
       instance.nodes[index] = instance.nodes[index]._replace(ip = instance.local_ip)
       instance.nodes[index] = instance.nodes[index]._replace(port = str(instance.listen_port))
   instance.is_master = True
+  instance.curr_master = instance.name
   try:
     url = "http://ec2-50-112-192-196.us-west-2.compute.amazonaws.com:1337/insert?id=" + str(instance.meeting_id)
     url += "&ip=" + instance.name + ":" + instance.local_ip + ":" + str(instance.listen_port)
@@ -57,8 +71,14 @@ def init_master():
   except:
     print "Error! Cannot connect to bootstrap server!"
     sys.exit(1)
+  instance.gmutex.acquire()
   send_heartbeats()
-   
+  instance.gmutex.release()
+  
+def clear_master():
+  print "Clearing master..."
+  instance.is_master = False
+  instance.last_heartbeat_rcvd = time.time() 
    
 # Master Message Handling
 

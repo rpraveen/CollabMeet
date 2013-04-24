@@ -20,3 +20,9 @@ def parse():
       instance.curr_master = instance.name
   except:
     pass
+  
+def get_node_index(name):
+  for index, node in enumerate(instance.nodes):
+    if node.name == name:
+      return index
+  return 0

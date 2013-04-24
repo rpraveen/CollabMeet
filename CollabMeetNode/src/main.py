@@ -4,6 +4,7 @@ import network
 import config
 import instance
 import master
+import time
 
 ############
 #   main   #
@@ -25,7 +26,8 @@ def main():
     master.init_master()
   else:
     network.join_meeting()
-    
+  
+  instance.last_heartbeat_rcvd = time.time()
   instance.master_thread = master.MasterThread()
   
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

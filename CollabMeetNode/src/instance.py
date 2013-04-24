@@ -11,12 +11,13 @@ master_thread = None
 nodes = []
 heartbeat_time = dict()
 has_exited = False
+last_heartbeat_rcvd = 0
 
 gmutex = threading.Lock()
 
 """Constants"""
 HEARTBEAT_SECS = 5
-HEARTBEAT_TIMEOUT = 30
+HEARTBEAT_TIMEOUT = 15
 CONN_RETRY_SECS = 5
 
 SENDER = 0
