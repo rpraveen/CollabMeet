@@ -12,7 +12,8 @@ def handle_heartbeat(strs):
     master.clear_master()
   instance.curr_master = strs[instance.SENDER]
   instance.nodes = []
-  for i in range(4, 4 + int(strs[instance.NODECOUNT])):
+  nodecount = int(strs[instance.NODECOUNT])
+  for i in range(4, 4 + nodecount):
     s = strs[i]
     val = s.split('#')
     d = dict()
@@ -23,6 +24,10 @@ def handle_heartbeat(strs):
     instance.nodes.append(config.Node(**d)) 
   reply = "master:heartbeatreply"
   network.send(instance.curr_master, reply)
+  video_name = strs[4 + nodecount]
+  video_ip = strs[5 + nodecount]
+  video_port = int(strs[6 + nodecount])
+  api.update_video_source(video_name, video_ip, video_port)
   
     
 def handle_message(data):

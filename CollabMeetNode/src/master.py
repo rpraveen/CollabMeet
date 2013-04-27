@@ -5,6 +5,7 @@ import sys
 import network
 import urllib2
 import config
+import api
 
 class MasterThread(threading.Thread):
   def __init__(self):
@@ -37,6 +38,7 @@ def gen_heartbeat_str():
   data = "node:heartbeat:" + str(len(instance.nodes))
   for node in instance.nodes:
     data += ":" + node.name + "#" + node.password + "#" + node.ip + "#" + node.port
+  data += ":" + instance.curr_video_name + ":" + instance.curr_video_ip + ":" + str(instance.curr_video_port)
   return data
 
 
@@ -52,6 +54,7 @@ def send_heartbeats():
     else:
       network.send(peer, data)
   #print "Heartbeat reply times:", instance.heartbeat_time
+  api.update_video_source(instance.curr_video_name, instance.curr_video_ip, instance.curr_video_port)
 
 
 def init_master():
@@ -108,8 +111,18 @@ def handle_heartbeatreply(strs):
 
  
 def handle_videoreq(strs):
-  print "Video req from: " + strs[instance.SENDER]
-  pass 
+  if instance.curr_video_name != strs[instance.SENDER]:
+    #TODO: handle waiting lists
+    return
+  instance.curr_video_name = strs[instance.SENDER]
+  instance.curr_video_ip = strs[3]
+  instance.curr_video_port = int(strs[4])
+
+
+def handle_videostop(strs):
+  instance.curr_video_name = 'none'
+  instance.curr_video_ip = '0.0.0.0'
+  instance.curr_video_port = 0
  
  
 def handle_message(data, sock):
@@ -123,5 +136,7 @@ def handle_message(data, sock):
     handle_heartbeatreply(strs)
   elif strs[instance.MSGTYPE] == 'videoreq':
     handle_videoreq(strs)
+  elif strs[instance.MSGTYPE] == 'videostop':
+    handle_videostop(strs)
   else:
     print 'Error! Invalid message to master'

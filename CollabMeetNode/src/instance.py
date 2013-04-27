@@ -15,8 +15,10 @@ heartbeat_time = dict()
 has_exited = False
 last_heartbeat_rcvd = 0
 
+curr_video_name = 'none'
 curr_video_ip = '0.0.0.0'
 curr_video_port = 0
+initialized = False
 
 gmutex = threading.Lock()
 
