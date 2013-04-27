@@ -103,10 +103,13 @@ public class ServerAPI {
 		        int nodeCount = Integer.parseInt(str[3]);
 		        for(int i = 0; i < nodeCount; i++) {
 		        	String nodeStr[] = (str[i + 4]).split("#");
-		        	if(i > 0) {
+		        	if(nodeStr[3].equals("0")) {
+		        		continue;
+		        	}
+		        	if(ips.length() != 0) {
 		        		ips += ",";
 		        	}
-		        	ips += nodeStr[2] + ":" + nodeStr[3];
+		        	ips += nodeStr[0] + ":" + nodeStr[2] + ":" + nodeStr[3];
 		        }
 				
 				s.close();

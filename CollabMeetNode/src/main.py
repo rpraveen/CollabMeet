@@ -12,12 +12,12 @@ import time
 
 def main():  
   if len(sys.argv) != 3: 
-    print '<usage> name port'
+    print '<usage> name ip port vport'
     sys.exit(1)
   
   instance.name = sys.argv[1]
   #instance.local_ip = '127.0.0.1'
-  instance.local_ip = '192.168.0.104'
+  instance.local_ip = '128.237.235.90'
   instance.listen_port = int(sys.argv[2])
   
   config.parse()

@@ -45,8 +45,8 @@ public class CollabMeetApplication extends Application {
 			for (String str: ipAddresses.split(",")) {
 				try {
 					String sockAddr[] = str.split(":");
-					String ip = sockAddr[0];
-					int port = Integer.parseInt(sockAddr[1]);
+					String ip = sockAddr[1];
+					int port = Integer.parseInt(sockAddr[2]);
 					
 					if(port == 0) {
 						continue;
