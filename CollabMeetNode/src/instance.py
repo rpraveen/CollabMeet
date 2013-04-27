@@ -4,14 +4,19 @@ import threading
 name = ''
 local_ip = ''
 listen_port = 0
+meeting_id = 123
+video_port = 12344
+
 is_master = False
 curr_master = ''
-meeting_id = 123
 master_thread = None
 nodes = []
 heartbeat_time = dict()
 has_exited = False
 last_heartbeat_rcvd = 0
+
+curr_video_ip = '0.0.0.0'
+curr_video_port = 0
 
 gmutex = threading.Lock()
 

@@ -51,7 +51,7 @@ def send_heartbeats():
       #TODO: handle timeout
     else:
       network.send(peer, data)
-  print "Heartbeat reply times:", instance.heartbeat_time
+  #print "Heartbeat reply times:", instance.heartbeat_time
 
 
 def init_master():
@@ -103,17 +103,25 @@ def handle_join(strs, sock):
     sock.sendall(instance.name + ":" + reply + "\n")
 
 
-def handle_heartbeatreply(strs, sock):
+def handle_heartbeatreply(strs):
   instance.heartbeat_time[strs[instance.SENDER]] = time.time()
 
+ 
+def handle_videoreq(strs):
+  print "Video req from: " + strs[instance.SENDER]
+  pass 
+ 
  
 def handle_message(data, sock):
   strs = data.split(':')
   if not instance.is_master:
+    print "Error! Dropping master packets"
     return
   if strs[instance.MSGTYPE] == 'join':
     handle_join(strs, sock)
   elif strs[instance.MSGTYPE] == 'heartbeatreply':  
-    handle_heartbeatreply(strs, sock)
+    handle_heartbeatreply(strs)
+  elif strs[instance.MSGTYPE] == 'videoreq':
+    handle_videoreq(strs)
   else:
     print 'Error! Invalid message to master'

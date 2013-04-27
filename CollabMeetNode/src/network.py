@@ -16,7 +16,6 @@ import time
 import instance
 import master
 import messages
-import copy
 import urllib2
 
 connection_list = dict()
@@ -40,7 +39,7 @@ class Receiver(threading.Thread):
       if strs[instance.MODULE] == 'master':
         master.handle_message(data, self.cs)
       else:
-        messages.handle_message(data, self.cs)
+        messages.handle_message(data)
       instance.gmutex.release()
     self.cs.close()
 
@@ -152,7 +151,7 @@ def join_meeting():
     send(strs[0], "master:join:" + "password" + ":" + instance.local_ip + ":" + str(instance.listen_port))
     data = sock.recv(1024)
     print "Join reply: ", data
-    messages.handle_message(data, sock)
+    messages.handle_message(data)
   except:
     print "Error! Cannot connect to meeting!"
     sys.exit(1)

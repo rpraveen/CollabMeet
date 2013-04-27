@@ -5,20 +5,23 @@ import config
 import instance
 import master
 import time
+import api
 
 ############
 #   main   #
 ############
 
 def main():  
-  if len(sys.argv) != 3: 
-    print '<usage> name ip port vport'
+  if len(sys.argv) != 5: 
+    print '<usage> name ip port videoport'
     sys.exit(1)
   
   instance.name = sys.argv[1]
-  #instance.local_ip = '127.0.0.1'
-  instance.local_ip = '128.237.235.90'
-  instance.listen_port = int(sys.argv[2])
+  instance.local_ip = sys.argv[2]
+  instance.listen_port = int(sys.argv[3])
+  instance.video_port = int(sys.argv[3])
+  
+  instance.local_ip = '128.237.130.30'
   
   config.parse()
   
@@ -40,18 +43,16 @@ def main():
       if len(command) == 0:
         continue
       commands = command.split(':')
-      #TODO: error check
-      
-      instance.gmutex.acquire()
-      if commands[0] == 's':
-        network.send(commands[1],commands[2])
-      elif command[0] == 'q':
+      if commands[0] == 'q':
         instance.has_exited = True
         network.close_connections()
         sys.exit(0)
+      elif commands[0] == 'text':
+        api.send_text_msg(commands[1])
+      elif commands[0] == 'video':
+        api.send_video_req()
       else:
         print 'This command is not supported'
-      instance.gmutex.release()
     except KeyboardInterrupt:
       sys.exit(1)
 
