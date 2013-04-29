@@ -59,13 +59,15 @@ class Map(Qt.QDialog):
             raise
 
         gps_data=[latitude,longitude]
+        
         mode = self.combox.currentIndex()
-        map_url,des = generate_map_and_desc(gps_data,mode)
+        marker_list = [[(gps_data[0]+0.001), (gps_data[1]+0.001)],[(gps_data[0]-0.001), (gps_data[1]-0.001)]]
+        des = generate_map_and_desc(gps_data,mode,marker_list)
         print(map_url)
-        map_file=self.opener.open(map_url)
-        f=open('tmp.png','wr')
-        f.write(map_file.read())
-        f.close()
+                #map_file=self.opener.open(map_url)
+                #f=open('tmp.png','wr')
+                #f.write(map_file.read())
+                #f.close()
         self.showtext.setText(des)
         self.mapshow.clear()
         picture=Qt.QImage('./tmp.png')
