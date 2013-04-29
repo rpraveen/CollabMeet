@@ -21,8 +21,6 @@ def main():
   instance.listen_port = int(sys.argv[3])
   instance.video_port = int(sys.argv[3])
   
-#instance.local_ip = '128.237.130.30'
-  
   config.parse()
   
   if instance.curr_master == instance.name:
