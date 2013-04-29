@@ -1,6 +1,7 @@
 #!/usr/bin/pythonw
 
 import urllib
+from pygeocoder import Geocoder
 import codecs
 from googlemaps import GoogleMaps
 from motionless import AddressMarker, LatLonMarker,DecoratedMap, CenterMap, VisibleMap
@@ -10,8 +11,12 @@ def generate_map_and_desc(gps_data,mode,marker_list):
     api_key='AIzaSyBepV-5hoVd8xzwkdE93I0eRKf2jTlys3U'
     gmaps = GoogleMaps(api_key)
     gps=gps_data
-    destination = gmaps.latlng_to_address(gps[0],gps[1])
-    destination='N/A'
+    try:
+        result = Geocoder.reverse_geocode(gps_data[0],gps_data[1])
+        destination = str(result)
+    except:
+        destination = 'N/A'
+    
     if mode==0:
         dmap = DecoratedMap(size_x=400,size_y=400)
     else:
