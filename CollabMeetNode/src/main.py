@@ -7,6 +7,7 @@ import master
 import time
 import api
 import gobject, gtk
+import map_decode
 
 gtk.gdk.threads_init()
 
@@ -44,7 +45,8 @@ def main():
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   network.ListeningThread(s)
   network.ConnectingThread()
-  
+  map_decode.MapThread()
+
   api.init_gui()
   
   while 1:

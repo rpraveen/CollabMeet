@@ -93,7 +93,7 @@ class ConnectingThread(threading.Thread):
             instance.gmutex.release()
             print '[Connected!]', dest_name
           except:
-            print 'Cannot connect to', dest_name
+            print 'Exception! Cannot connect to', dest_name
             time.sleep(1)
             pass
       time.sleep(instance.CONN_RETRY_SECS)
@@ -131,9 +131,9 @@ def close_connections():
 def remove_peer(name):
   if instance.initialized == False:
     return
-  print "## Removing peer: " + name
   global connection_list
   if name in connection_list:
+    print "## Removing peer: " + name
     del connection_list[name]
   if name in instance.heartbeat_time:
     del instance.heartbeat_time[name]

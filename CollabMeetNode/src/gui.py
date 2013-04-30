@@ -16,12 +16,15 @@ import api
 import threading
 import network
 import instance
+import config
 
 input_text = None
 chattextview = None
 wTree = None
 
 def append_chat_msg(msgtime, sender, msg):
+  if instance.gui_inited == False:
+    return
   msg = msg + "\n"
   msgtime = msgtime.replace('-', ':', 10)
   msg = "[" + msgtime + "] " + sender + ": " + msg
@@ -47,6 +50,8 @@ def destroy(self, widget):
   print "destroy occured"
 
 def update_image(file):
+  if instance.gui_inited == False:
+    return
   global wTree
   pixbuf = gtk.gdk.pixbuf_new_from_file(file)
   width = 300
@@ -56,6 +61,8 @@ def update_image(file):
   image.set_from_pixbuf(pixbuf)
 
 def update_meeting_info():
+  if instance.gui_inited == False:
+    return
   global wTree
   meetinginfo = wTree.get_widget("meetinginfo");
   buf = meetinginfo.get_buffer()
@@ -64,7 +71,10 @@ def update_meeting_info():
   msg += "< Meeting ID: " + str(instance.meeting_id) + " >\n"
   msg += "\nOnline Members:\n" + instance.name + "\n"
   for peer in network.get_connection_list():
-    msg += peer + "\n" 
+    msg += peer + "\n"
+  msg += "\nAll Members:\n"
+  for node in instance.nodes:
+    msg += chr(65 + config.get_node_index(node.name)) + ") " + node.name + "\n" 
   buf.set_text(msg)
 
 def gtk_init_ui():
@@ -83,7 +93,11 @@ def gtk_init_ui():
   global chattextview
   chattextview = wTree.get_widget("chattextview");
 
+  instance.gmutex.acquire()
+  instance.gui_inited = True
   update_meeting_info()
+  instance.gmutex.release()
+
   update_image("google_maps.jpg")
 
   strs = instance.chat_msgs.split(":")

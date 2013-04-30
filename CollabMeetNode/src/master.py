@@ -50,7 +50,7 @@ def send_heartbeats():
       instance.heartbeat_time[peer] = time.time()
     if (time.time() - instance.heartbeat_time[peer]) >= instance.HEARTBEAT_TIMEOUT:
       print "Timeout: ", peer, "Current time: ", time.time(), "Last replied: ", instance.heartbeat_time[peer]
-      #TODO: handle timeout
+      network.remove_peer(peer)
     else:
       network.send(peer, data)
   #print "Heartbeat reply times:", instance.heartbeat_time

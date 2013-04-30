@@ -3,6 +3,7 @@ import instance
 import master
 import time
 import gui
+import config
   
 """ APIs for GUI integration """
 
@@ -34,9 +35,20 @@ def received_text_msg(sender, text):
 
 
 def update_map_loc(name, latitude, longitude):
-  print "Mobile location update: sender:" + name + " latitude:" + latitude + " longitude:" + longitude
-  #TODO: update GUI
-  pass
+  strs = instance.map_loc.split(":")
+  new_map_loc = "map"
+  found = False
+  for i in range(1, len(strs)):
+    loc = strs[i]
+    data = loc.split("#")
+    if data[0] == name:
+      found = True
+      new_map_loc += ":" + name + "#" + latitude + "#" + longitude + "#" + chr(65 + config.get_node_index(name))
+    else:
+      new_map_loc += ":" + loc
+  if found == False:
+    new_map_loc += ":" + name + "#" + latitude + "#" + longitude + "#" + chr(65 + config.get_node_index(name))
+  instance.map_loc = new_map_loc
 
 
 """ APIs for video multicasting """
