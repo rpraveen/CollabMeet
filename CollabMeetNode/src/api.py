@@ -6,7 +6,6 @@ import p1
 """ APIs for GUI integration """
 
 def init_gui():
-  #TODO: init GUI
   p1.markui1()
   pass
 
@@ -23,7 +22,7 @@ def send_text_msg(text):
 
 def received_text_msg(sender, text):
   print "Text message: sender:" + sender + " text:" + text
-  #TODO: update GUI
+  p1.print_data(sender, text)
   pass
 
 

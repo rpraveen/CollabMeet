@@ -15,44 +15,24 @@ except:
 import api
 import threading
 import time
+import instance
 
 input_text = None
 chattextview = None
+
+def print_data(sender, msg):
+  msg = msg + "\n"
+  now = time.strftime("%H:%M:%S")
+  msg = "["+now+"] " + sender +": "+msg
+  global chattextview
+  buf = chattextview.get_buffer()
+  buf.insert(buf.get_end_iter(), msg)
 
 def send_message(message = None):
   global input_text
   text = input_text.get_text()
   api.send_text_msg(text) #send over the network    
-
-  #also show on the chat box
-  global chattextview
-  buf = chattextview.get_buffer()
-  eob = buf.get_end_iter()
-  buf.insert(eob,"\n"+text)
-
-def print_data(msg):
-  msg = msg + "\n"
-  now = time.strftime("%H:%M:%S")
-  msg = "["+now+"]: "+msg
-  global chattextview
-  buf = chattextview.get_buffer()
-  buf.insert(buf.get_end_iter(), msg)
-
-
-def main_iteration(self):
-  while 1:
-    #try:
-    m = api.recv()
-    #except:
-    #  print "exception in api.recv"
-
-    if m != None:
-      print_data("["+m+"]")
-    else:
-      print "no message so far"
-
-    print "in main_iteration.."
-    time.sleep(1) #check 0.01
+  print_data(instance.name, text)
 
 def on_entry1_key_press_event(widg, event):
   if event.keyval == gtk.keysyms.Return:
@@ -82,5 +62,4 @@ def markui1():
   global chattextview
   chattextview = wTree.get_widget("chattextview");
   window.show()
-  #main_iteration()
   gtk.main()

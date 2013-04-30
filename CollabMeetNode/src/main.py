@@ -35,8 +35,6 @@ def main():
   
   instance.initialized = True
   
-  api.init_video_module()
-  
   instance.last_heartbeat_rcvd = time.time()
   instance.master_thread = master.MasterThread()
   
