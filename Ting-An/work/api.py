@@ -4,12 +4,11 @@ import master
 import p1
   
 """ APIs for GUI integration """
+receive_queue = []
 
 def init_gui():
-  #TODO: init GUI
-  p1.markui1()
-  pass
-
+  print "init GUI thread..."
+  p1.markui() 
 
 def send_text_msg(text):
   msg = "node:textmsg:" + text
@@ -22,10 +21,17 @@ def send_text_msg(text):
 
 
 def received_text_msg(sender, text):
-  print "Text message: sender:" + sender + " text:" + text
-  #TODO: update GUI
-  pass
+  msg = "Text message: sender:" + sender + " text:" + text
+  print msg
+  receive_queue.insert(0,msg)
+  
 
+def recv():
+  if len(receive_queue) > 0:
+      msg = self.receive_queue.pop()
+      #text, tags = untag_message(msg)
+      return text
+  return None 
 
 def update_map_loc(name, latitude, longitude):
   print "Mobile location update: sender:" + name + " latitude:" + latitude + " longitude:" + longitude
