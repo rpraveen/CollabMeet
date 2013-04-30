@@ -16,6 +16,8 @@ import api
 import threading
 import time
 
+input_text = None
+
 class markui(threading.Thread):
   def __init__(self):
     """display main window"""
@@ -92,13 +94,16 @@ class markui(threading.Thread):
     #self.main_iteration()
     gtk.main()
 
-def button1_clicked(self, widget):
+def button1_clicked(widget):
   print "hello"
+  global input_text
+  text = input_text.get_text()
+  api.send_text_msg(text) #send over the network    
 
 def destroy(self, widget):
   print "destroy occured"
 
-def on_entry1_key_press_event(self, widg, event):
+def on_entry1_key_press_event(widg, event):
   pass
 
 def on_connect_button_click(self, arg):
@@ -117,6 +122,7 @@ def markui1():
 
   wTree.signal_autoconnect(dic)
   window = wTree.get_widget("markui")
+  global input_text
   input_text = wTree.get_widget("entry1")
   chattextview = wTree.get_widget("chattextview");
   window.show()
