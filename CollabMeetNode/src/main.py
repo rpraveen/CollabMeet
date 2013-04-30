@@ -50,6 +50,7 @@ def main():
         continue
       commands = command.split(':')
       if commands[0] == 'q':
+        print "Quitting.."
         instance.has_exited = True
         network.close_connections()
         sys.exit(0)

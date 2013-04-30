@@ -45,6 +45,9 @@ def handle_message(data):
   elif strs[instance.MSGTYPE] == 'textmsg':
     sender = strs[instance.SENDER]
     text = strs[3]
+    if instance.chat_msgs != "":
+      instance.chat_msgs += ";";
+    instance.chat_msgs += sender + ":" + text 
     api.received_text_msg(sender, text)
   else:
     print 'Error! Invalid message'

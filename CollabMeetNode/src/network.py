@@ -52,14 +52,15 @@ class ListeningThread(threading.Thread):
     self.start()
     
   def run(self):
-    self.sock.bind((instance.local_ip, instance.listen_port))
+    self.sock.bind(('0.0.0.0', instance.listen_port))
     self.sock.listen(5) #blocking
+
     while not instance.has_exited:
       try:
         conn, addr = self.sock.accept()
         #print '[Connected by', addr, ']'
         Receiver(conn)
-      except KeyboardInterrupt:
+      except:
         sys.exit(1)
 
 
@@ -152,6 +153,7 @@ def join_meeting():
     data = sock.recv(1024)
     print "Join reply: ", data
     messages.handle_message(data)
+    print "Chat log:", instance.chat_msgs
   except:
     print "Error! Cannot connect to meeting!"
     sys.exit(1)
