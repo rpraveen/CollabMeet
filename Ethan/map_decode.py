@@ -1,8 +1,8 @@
 #!/usr/bin/pythonw
 
 import urllib
-from pygeocoder import Geocoder
 import codecs
+from pygeocoder import Geocoder
 from googlemaps import GoogleMaps
 from motionless import AddressMarker, LatLonMarker,DecoratedMap, CenterMap, VisibleMap
 
@@ -18,7 +18,7 @@ def generate_map_and_desc(gps_data,mode,marker_list):
         destination = 'N/A'
     
     if mode==0:
-        dmap = DecoratedMap(size_x=400,size_y=400)
+        dmap=DecoratedMap(size_x=400,size_y=400)
     else:
         dmap=DecoratedMap(size_x=400,size_y=400, maptype='satellite')
 
@@ -28,6 +28,7 @@ def generate_map_and_desc(gps_data,mode,marker_list):
 
     cmap = CenterMap(lat=gps[0],lon=gps[1], zoom=12)
     map_url=dmap.generate_url()
+    print(map_url)
     f=open('tmp.png','wr')
     f.write(urllib.urlopen(map_url).read())
     f.close()

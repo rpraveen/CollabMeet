@@ -61,7 +61,7 @@ class Map(Qt.QDialog):
         gps_data=[latitude,longitude]
         
         mode = self.combox.currentIndex()
-        marker_list = [[(gps_data[0]+0.001), (gps_data[1]+0.001)],[(gps_data[0]-0.001), (gps_data[1]-0.001)]]
+        marker_list = [[(gps_data[0]+0.001), (gps_data[1]+0.001)],[40.4433, -79.9436]]
         des = generate_map_and_desc(gps_data,mode,marker_list)
                 #print(map_url)
                 #map_file=self.opener.open(map_url)
