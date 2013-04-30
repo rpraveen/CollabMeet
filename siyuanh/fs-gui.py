@@ -124,9 +124,7 @@ class FsUIPipeline:
         elif message.type == gst.MESSAGE_WARNING:
             print message.src.get_name(), ": ", message.parse_warning()
         elif message.type == gst.MESSAGE_ELEMENT:
-            if message.structure.has_name("dtmf-event"):
-                print "dtmf-event: %d" % message.structure["number"]
-            elif message.structure.has_name("farstream-local-candidates-prepared"):
+            if message.structure.has_name("farstream-local-candidates-prepared"):
                 message.structure["stream"].uistream.local_candidates_prepared()
 
             elif message.structure.has_name("farstream-new-local-candidate"):
@@ -410,18 +408,6 @@ class FsUISession:
         stream = FsUIStream(id, self, participant, realstream)
         self.streams.append(weakref.ref(stream, self.__stream_finalized))
         return stream
-
-    def dtmf_start(self, event):
-        if (event == "*"):
-            event = farstream.DTMF_EVENT_STAR
-        elif (event == "#"):
-            event = farstream.DTMF_EVENT_POUND
-        else:
-            event = int(event)
-        self.fssession.start_telephony_event(event, 2)
-        
-    def dtmf_stop(self):
-        self.fssession.stop_telephony_event()
 
     def codecs_changed(self):
         "Callback from FsSession"
@@ -830,28 +816,6 @@ class FsMainUI:
         dialog.destroy()
         gtk.main_quit()
         gtk.gdk.threads_leave()
-
-    def show_dtmf(self, button):
-        try:
-            self.dtmf_builder.present()
-        except AttributeError:
-            self.dtmf_builder = gtk.Builder()
-            self.dtmf_builder.add_from_file(builderprefix + "dtmf.ui")
-            self.dtmf_builder.connect_signals(self)
-            
-
-    def dtmf_start(self, button):
-        self.pipeline.audiosession.dtmf_start(button.get_label())
-                                              
-    def dtmf_stop(self, button):
-        try:
-            self.pipeline.audiosession.dtmf_stop()
-        except AttributeError:
-            pass
-    def dtmf_destroy(self, button):
-        self.dtmf_builder.get_object("dtmf_window").destroy()
-        del self.dtmf_builder
-
 
 
 class FsUIStartup:
