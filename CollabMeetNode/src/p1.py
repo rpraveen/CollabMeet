@@ -14,16 +14,15 @@ except:
 
 import api
 import threading
-import time
 import instance
 
 input_text = None
 chattextview = None
 
-def print_data(sender, msg):
+def print_data(msgtime, sender, msg):
   msg = msg + "\n"
-  now = time.strftime("%H:%M:%S")
-  msg = "["+now+"] " + sender +": "+msg
+  msgtime = msgtime.replace('-', ':', 10)
+  msg = "[" + msgtime + "] " + sender + ": " + msg
   global chattextview
   buf = chattextview.get_buffer()
   buf.insert(buf.get_end_iter(), msg)
@@ -31,8 +30,7 @@ def print_data(sender, msg):
 def send_message(message = None):
   global input_text
   text = input_text.get_text()
-  api.send_text_msg(text) #send over the network    
-  print_data(instance.name, text)
+  api.send_text_msg(text) #send over the network
 
 def on_entry1_key_press_event(widg, event):
   if event.keyval == gtk.keysyms.Return:

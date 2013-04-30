@@ -92,6 +92,7 @@ def handle_join(strs, sock):
         instance.nodes[index] = instance.nodes[index]._replace(ip = strs[4])
         instance.nodes[index] = instance.nodes[index]._replace(port = strs[5])
         data = gen_heartbeat_str()
+        data += ":" + instance.chat_msgs
         sock.sendall(instance.name + ":" + data)
         send_heartbeats() # inform others
       else:

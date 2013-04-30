@@ -150,7 +150,7 @@ def join_meeting():
     sock.connect((strs[1], int(strs[2])))  #blocking (with only 1 thread)
     connection_list[strs[0]] = sock
     send(strs[0], "master:join:" + "password" + ":" + instance.local_ip + ":" + str(instance.listen_port))
-    data = sock.recv(1024)
+    data = sock.recv(4096)
     print "Join reply: ", data
     messages.handle_message(data)
     print "Chat log:", instance.chat_msgs

@@ -1,6 +1,7 @@
 import network
 import instance
 import master
+import time
 import p1
   
 """ APIs for GUI integration """
@@ -13,6 +14,8 @@ def init_gui():
 def send_text_msg(text):
   msg = "node:textmsg:" + text
   instance.gmutex.acquire()
+  log_text_msg(instance.name, text)
+  p1.print_data(time.strftime("%H-%M-%S"), instance.name, text)
   for peer in network.get_connection_list():
     if peer == instance.name:
       continue;
@@ -20,9 +23,13 @@ def send_text_msg(text):
   instance.gmutex.release()
 
 
+def log_text_msg(sender, text):
+  instance.chat_msgs += ":" + time.strftime("%H-%M-%S") + "#" + sender + "#" + text
+
+
 def received_text_msg(sender, text):
-  print "Text message: sender:" + sender + " text:" + text
-  p1.print_data(sender, text)
+  log_text_msg(sender, text)
+  p1.print_data(time.strftime("%H-%M-%S"), sender, text)
   pass
 
 

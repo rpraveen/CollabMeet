@@ -27,6 +27,8 @@ def handle_heartbeat(strs):
   video_name = strs[4 + nodecount]
   video_ip = strs[5 + nodecount]
   video_port = int(strs[6 + nodecount])
+  for i in range(8 + nodecount, len(strs)):
+    instance.chat_msgs += ":" + strs[i]
   api.update_video_source(video_name, video_ip, video_port)
   
     
@@ -45,9 +47,6 @@ def handle_message(data):
   elif strs[instance.MSGTYPE] == 'textmsg':
     sender = strs[instance.SENDER]
     text = strs[3]
-    if instance.chat_msgs != "":
-      instance.chat_msgs += ";";
-    instance.chat_msgs += sender + ":" + text 
     api.received_text_msg(sender, text)
   else:
     print 'Error! Invalid message'
