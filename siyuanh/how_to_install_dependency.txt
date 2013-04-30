@@ -17,7 +17,3 @@ sudo apt-get install python-gobject-dbg
 sudo apt-get install python-gobject-dev
 
 sudo apt-get install python-farstream
-Down farsight from: http://freedesktop.org/software/farstream/releases/farsight2/, choose the newest one.
-
-compile farsight2(./configure; make; sudo make install)
-
