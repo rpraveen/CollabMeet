@@ -1,0 +1,23 @@
+# install gstreamer related packages on ubuntu
+
+sudo apt-get install gstreamer-tools
+sudo apt-get install gstreamer0.10-plugins-base
+sudo apt-get install gstreamer0.10-plugins-good
+sudo apt-get install gstreamer0.10-plugins-bad
+sudo apt-get install gstreamer0.10-plugins-ugly
+sudo apt-get install gstreamer0.10-ffmpeg
+sudo apt-get install libgstreamer0.10-dev 
+sudo apt-get install libgstreamer-plugins-base0.10-dev
+sudo apt-get install libperl-dev
+sudo apt-get install libgtk2.0-dev
+Download libnice from: http://www.linuxfromscratch.org/blfs/view/svn/basicnet/libnice.html, compile it(./configure; make; sudo make install)
+
+sudo apt-get install python-gobject
+sudo apt-get install python-gobject-dbg
+sudo apt-get install python-gobject-dev
+
+sudo apt-get install python-farstream
+Down farsight from: http://freedesktop.org/software/farstream/releases/farsight2/, choose the newest one.
+
+compile farsight2(./configure; make; sudo make install)
+
