@@ -1,0 +1,195 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AUDIO	fs2-gui.py	/^AUDIO=True$/;"	v
+CAMERA	fs2-gui.py	/^CAMERA=False$/;"	v
+CANDIDATE	fs2_gui_net.py	/^    CANDIDATE = 2$/;"	v	class:FsUIConnect
+CANDIDATES_DONE	fs2_gui_net.py	/^    CANDIDATES_DONE = 3$/;"	v	class:FsUIConnect
+CLIENT	fs2-gui.py	/^CLIENT=1$/;"	v
+CODECS	fs2_gui_net.py	/^    CODECS = 1$/;"	v	class:FsUIConnect
+ERROR	fs2_gui_net.py	/^    ERROR = 0$/;"	v	class:FsUIConnect
+FsMainUI	fs2-gui.py	/^class FsMainUI:$/;"	c
+FsUIAudioSource	fs2-gui.py	/^class FsUIAudioSource(FsUISource):$/;"	c
+FsUIClient	fs2-gui.py	/^from fs2_gui_net import  FsUIClient, FsUIListener, FsUIServer$/;"	i
+FsUIClient	fs2_gui_net.py	/^class FsUIClient:$/;"	c
+FsUIConnect	fs2_gui_net.py	/^class FsUIConnect:$/;"	c
+FsUIConnectClient	fs2_gui_net.py	/^class FsUIConnectClient (FsUIConnect):$/;"	c
+FsUIListener	fs2-gui.py	/^from fs2_gui_net import  FsUIClient, FsUIListener, FsUIServer$/;"	i
+FsUIListener	fs2_gui_net.py	/^class FsUIListener:$/;"	c
+FsUIParticipant	fs2-gui.py	/^class FsUIParticipant:$/;"	c
+FsUIPipeline	fs2-gui.py	/^class FsUIPipeline:$/;"	c
+FsUIServer	fs2-gui.py	/^from fs2_gui_net import  FsUIClient, FsUIListener, FsUIServer$/;"	i
+FsUIServer	fs2_gui_net.py	/^class FsUIServer:$/;"	c
+FsUISession	fs2-gui.py	/^class FsUISession:$/;"	c
+FsUISource	fs2-gui.py	/^class FsUISource:$/;"	c
+FsUIStartup	fs2-gui.py	/^class FsUIStartup:$/;"	c
+FsUIStream	fs2-gui.py	/^class FsUIStream:$/;"	c
+FsUIVideoSource	fs2-gui.py	/^class FsUIVideoSource(FsUISource):$/;"	c
+INTRO	fs2_gui_net.py	/^    INTRO = 4$/;"	v	class:FsUIConnect
+SERVER	fs2-gui.py	/^SERVER=2$/;"	v
+TRANSMITTER	fs2-gui.py	/^TRANSMITTER="nice"$/;"	v
+TestMedia	fs2_gui_net.py	/^    class TestMedia:$/;"	c
+TestParticipant	fs2_gui_net.py	/^    class TestParticipant:$/;"	c
+VIDEO	fs2-gui.py	/^VIDEO=True$/;"	v
+__candidate	fs2_gui_net.py	/^    def __candidate(self, src, dest, media, data):$/;"	m	class:FsUIClient	file:
+__candidate	fs2_gui_net.py	/^    def __candidate(self, src, dest, media, data):$/;"	m	class:FsUIServer	file:
+__candidate_done	fs2_gui_net.py	/^    def __candidate_done(self, src, dest, media, data):$/;"	m	class:FsUIClient	file:
+__candidate_done	fs2_gui_net.py	/^    def __candidate_done(self, src, dest, media, data):$/;"	m	class:FsUIServer	file:
+__candidate_from_string	fs2_gui_net.py	/^    def __candidate_from_string(self, string):$/;"	m	class:FsUIConnect	file:
+__candidate_to_string	fs2_gui_net.py	/^    def __candidate_to_string(self, candidate):$/;"	m	class:FsUIConnect	file:
+__codecs	fs2_gui_net.py	/^    def __codecs(self, src, dest, media, data):$/;"	m	class:FsUIClient	file:
+__codecs	fs2_gui_net.py	/^    def __codecs(self, src, dest, media, data):$/;"	m	class:FsUIServer	file:
+__codecs_from_string	fs2_gui_net.py	/^    def __codecs_from_string(self, string):$/;"	m	class:FsUIConnect	file:
+__codecs_to_string	fs2_gui_net.py	/^    def __codecs_to_string(self, codecs):$/;"	m	class:FsUIConnect	file:
+__data_in	fs2_gui_net.py	/^    def __data_in(self, source, condition):$/;"	m	class:FsUIConnect	file:
+__del__	fs2-gui.py	/^    def __del__(self):$/;"	m	class:FsMainUI	file:
+__del__	fs2-gui.py	/^    def __del__(self):$/;"	m	class:FsUIPipeline	file:
+__del__	fs2-gui.py	/^    def __del__(self):$/;"	m	class:FsUISession	file:
+__del__	fs2-gui.py	/^    def __del__(self):$/;"	m	class:FsUISource	file:
+__del__	fs2_gui_net.py	/^    def __del__(self):$/;"	m	class:FsUIConnect	file:
+__error	fs2_gui_net.py	/^    def __error(self, participantid, *arg):$/;"	m	class:FsUIClient	file:
+__error	fs2_gui_net.py	/^    def __error(self, participantid, *args):$/;"	m	class:FsUIServer	file:
+__error	fs2_gui_net.py	/^    def __error(self, source, condition):$/;"	m	class:FsUIConnect	file:
+__init__	fs2-gui.py	/^    def __init__(self):$/;"	m	class:FsUIStartup
+__init__	fs2-gui.py	/^    def __init__(self, conference, source):$/;"	m	class:FsUISession
+__init__	fs2-gui.py	/^    def __init__(self, connect, id, cname, pipeline, mainui):$/;"	m	class:FsUIParticipant
+__init__	fs2-gui.py	/^    def __init__(self, elementname="fsrtpconference"):$/;"	m	class:FsUIPipeline
+__init__	fs2-gui.py	/^    def __init__(self, id, session, participant, fsstream):$/;"	m	class:FsUIStream
+__init__	fs2-gui.py	/^    def __init__(self, mode, ip, port):$/;"	m	class:FsMainUI
+__init__	fs2-gui.py	/^    def __init__(self, pipeline):$/;"	m	class:FsUISource
+__init__	fs2_gui_net.py	/^        def __init__(self, connect, id, cname, *args):$/;"	m	class:.TestParticipant
+__init__	fs2_gui_net.py	/^        def __init__(self, pid, id, connect):$/;"	m	class:.TestMedia
+__init__	fs2_gui_net.py	/^    def __init__(self, ip, port, callbacks):$/;"	m	class:FsUIConnectClient
+__init__	fs2_gui_net.py	/^    def __init__(self, ip, port, cname, get_participant, *args):$/;"	m	class:FsUIClient
+__init__	fs2_gui_net.py	/^    def __init__(self, port, callback, *args):$/;"	m	class:FsUIListener
+__init__	fs2_gui_net.py	/^    def __init__(self, sock, callbacks, myid=0):$/;"	m	class:FsUIConnect
+__init__	fs2_gui_net.py	/^    def __init__(self, sock, cname, get_participant, *args):$/;"	m	class:FsUIServer
+__intro	fs2_gui_net.py	/^    def __intro(self, src, dest, media, cname):$/;"	m	class:FsUIClient	file:
+__intro	fs2_gui_net.py	/^    def __intro(self, src, dest, media, cname):$/;"	m	class:FsUIServer	file:
+__remove_from_send_codecs_to	fs2-gui.py	/^    def __remove_from_send_codecs_to(self, participant):$/;"	m	class:FsUIStream	file:
+__reset	fs2_gui_net.py	/^    def __reset(self):$/;"	m	class:FsUIConnect	file:
+__send_data	fs2_gui_net.py	/^    def __send_data(self, dest, type, media=0, data="", src=None):$/;"	m	class:FsUIConnect	file:
+__src_pad_added	fs2-gui.py	/^    def __src_pad_added(self, stream, pad, codec):$/;"	m	class:FsUIStream	file:
+__stream_finalized	fs2-gui.py	/^    def __stream_finalized(self, s):$/;"	m	class:FsUISession	file:
+action	fs2-gui.py	/^    def action(self, mode):$/;"	m	class:FsUIStartup
+async_handler	fs2-gui.py	/^    def async_handler(self, bus, message):$/;"	m	class:FsUIPipeline
+audio_combobox_changed_cb	fs2-gui.py	/^    def audio_combobox_changed_cb(self, combobox):$/;"	m	class:FsMainUI
+builderprefix	fs2-gui.py	/^builderprefix = os.path.join(os.path.dirname(__file__),"fs2-gui-")$/;"	v
+candidate	fs2-gui.py	/^    def candidate(self, candidate):$/;"	m	class:FsUIStream
+candidate	fs2-gui.py	/^    def candidate(self, media, candidate):$/;"	m	class:FsUIParticipant
+candidate	fs2_gui_net.py	/^        def candidate(self, candidate):$/;"	m	class:.TestMedia
+candidate	fs2_gui_net.py	/^        def candidate(self, media, candidate):$/;"	m	class:.TestParticipant
+candidates_done	fs2-gui.py	/^    def candidates_done(self):$/;"	m	class:FsUIStream
+candidates_done	fs2-gui.py	/^    def candidates_done(self, media):$/;"	m	class:FsUIParticipant
+candidates_done	fs2_gui_net.py	/^        def candidates_done(self):$/;"	m	class:.TestMedia
+candidates_done	fs2_gui_net.py	/^        def candidates_done(self, media):$/;"	m	class:.TestParticipant
+check_send_local_codecs	fs2-gui.py	/^    def check_send_local_codecs(self):$/;"	m	class:FsUIStream
+client	fs2_gui_net.py	/^        client = FsUIClient("127.0.0.1", int(sys.argv[1]),$/;"	v	class:.TestParticipant
+codecs	fs2-gui.py	/^    def codecs(self, codecs):$/;"	m	class:FsUIStream
+codecs	fs2-gui.py	/^    def codecs(self, media, codecs):$/;"	m	class:FsUIParticipant
+codecs	fs2_gui_net.py	/^        def codecs(self, codecs):$/;"	m	class:.TestMedia
+codecs	fs2_gui_net.py	/^        def codecs(self, media, codecs):$/;"	m	class:.TestParticipant
+codecs_changed	fs2-gui.py	/^    def codecs_changed(self):$/;"	m	class:FsUISession
+codecs_changed	fs2-gui.py	/^    def codecs_changed(self):$/;"	m	class:FsUIStream
+combobox_changed_cb	fs2-gui.py	/^    def combobox_changed_cb(self, combobox, fssession):$/;"	m	class:FsMainUI
+connect	fs2-gui.py	/^    def connect(self, widget):$/;"	m	class:FsUIStartup
+data_in	fs2_gui_net.py	/^    def data_in(self, source, condition):$/;"	m	class:FsUIListener
+destroy	fs2-gui.py	/^    def destroy(self):$/;"	m	class:FsUIParticipant
+destroy	fs2_gui_net.py	/^        def destroy(self):$/;"	m	class:.TestParticipant
+dtmf_destroy	fs2-gui.py	/^    def dtmf_destroy(self, button):$/;"	m	class:FsMainUI
+dtmf_start	fs2-gui.py	/^    def dtmf_start(self, button):$/;"	m	class:FsMainUI
+dtmf_start	fs2-gui.py	/^    def dtmf_start(self, event, method):$/;"	m	class:FsUISession
+dtmf_stop	fs2-gui.py	/^    def dtmf_stop(self, button):$/;"	m	class:FsMainUI
+dtmf_stop	fs2-gui.py	/^    def dtmf_stop(self, method):$/;"	m	class:FsUISession
+element_added_cb	fs2-gui.py	/^    def element_added_cb(self, notifier, bin, element):$/;"	m	class:FsUIPipeline
+error	fs2-gui.py	/^    def error(self):$/;"	m	class:FsUIParticipant
+error	fs2_gui_net.py	/^        def error(self):$/;"	m	class:.TestParticipant
+error	fs2_gui_net.py	/^    def error(self, source, condition):$/;"	m	class:FsUIListener
+exposed	fs2-gui.py	/^    def exposed(self, widget, *args):$/;"	m	class:FsMainUI
+exposed	fs2-gui.py	/^    def exposed(self, widget, *args):$/;"	m	class:FsUIParticipant
+farsight	fs2-gui.py	/^        import farsight$/;"	i
+farsight	fs2-gui.py	/^    import farsight$/;"	i
+farsight	fs2_gui_net.py	/^    import farsight$/;"	i
+fatal_error	fs2-gui.py	/^    def fatal_error(self, errormsg):$/;"	m	class:FsMainUI
+gc	fs2_gui_net.py	/^import gc$/;"	i
+gdk	fs2-gui.py	/^    import gtk, gobject, gtk.gdk$/;"	i
+get_codecs	fs2_gui_net.py	/^        def get_codecs(self):$/;"	m	class:.TestMedia
+get_src_pad	fs2-gui.py	/^    def get_src_pad(self, name="src%d"):$/;"	m	class:FsUISource
+get_type	fs2-gui.py	/^    def get_type(self):$/;"	m	class:FsUIAudioSource
+get_type	fs2-gui.py	/^    def get_type(self):$/;"	m	class:FsUISource
+get_type	fs2-gui.py	/^    def get_type(self):$/;"	m	class:FsUIVideoSource
+gobject	fs2-gui.py	/^    import gobject$/;"	i
+gobject	fs2-gui.py	/^    import gtk, gobject, gtk.gdk$/;"	i
+gobject	fs2_gui_net.py	/^import gobject$/;"	i
+gst	fs2-gui.py	/^    import gst$/;"	i
+gst	fs2_gui_net.py	/^    import gst$/;"	i
+gtk	fs2-gui.py	/^    import gtk, gobject, gtk.gdk$/;"	i
+have_size	fs2-gui.py	/^    def have_size(self, pad, buffer):$/;"	m	class:FsUIParticipant
+have_size	fs2-gui.py	/^    def have_size(self, pad, buffer, callback):$/;"	m	class:FsUIPipeline
+hbox_add	fs2-gui.py	/^    def hbox_add(self, widget, label):$/;"	m	class:FsMainUI
+int_handler	fs2-gui.py	/^    def int_handler(self, sig, frame):$/;"	m	class:FsUIPipeline
+link_audio_sink	fs2-gui.py	/^    def link_audio_sink(self, pad):$/;"	m	class:FsUIPipeline
+link_video_sink	fs2-gui.py	/^    def link_video_sink(self, pad):$/;"	m	class:FsUIParticipant
+listener	fs2_gui_net.py	/^        listener = FsUIListener(9893, FsUIServer, "cnameServ", TestParticipant)$/;"	v	class:.TestParticipant
+local_candidates_prepared	fs2-gui.py	/^    def local_candidates_prepared(self):$/;"	m	class:FsUIStream
+mainloop	fs2_gui_net.py	/^    mainloop = gobject.MainLoop()$/;"	v
+make_source	fs2-gui.py	/^    def make_source(self):$/;"	m	class:FsUIAudioSource
+make_source	fs2-gui.py	/^    def make_source(self):$/;"	m	class:FsUISource
+make_source	fs2-gui.py	/^    def make_source(self):$/;"	m	class:FsUIVideoSource
+make_video_preview	fs2-gui.py	/^    def make_video_preview(self, xid, newsize_callback):$/;"	m	class:FsUIPipeline
+make_video_sink	fs2-gui.py	/^def make_video_sink(pipeline, xid, name, async=True):$/;"	f
+make_widget	fs2-gui.py	/^    def make_widget(self):$/;"	m	class:FsUIParticipant
+mycname	fs2-gui.py	/^mycname = "".join((pwd.getpwuid(os.getuid())[0],$/;"	v
+mycname	fs2_gui_net.py	/^    mycname = "test"$/;"	v
+new_local_candidate	fs2-gui.py	/^    def new_local_candidate(self, candidate):$/;"	m	class:FsUIStream
+new_server	fs2-gui.py	/^    def new_server(self, widget):$/;"	m	class:FsUIStartup
+new_stream	fs2-gui.py	/^    def new_stream(self, id, participant):$/;"	m	class:FsUISession
+newsize	fs2-gui.py	/^    def newsize (self, x, y):$/;"	m	class:FsMainUI
+nextid	fs2_gui_net.py	/^    nextid = 2$/;"	v	class:FsUIServer
+os	fs2-gui.py	/^import sys, os, pwd, os.path$/;"	i
+os	fs2_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+participants	fs2_gui_net.py	/^    participants = {}$/;"	v	class:FsUIServer
+path	fs2-gui.py	/^import sys, os, pwd, os.path$/;"	i
+path	fs2_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+put_src_pad	fs2-gui.py	/^    def put_src_pad(self, pad):$/;"	m	class:FsUISource
+pwd	fs2-gui.py	/^import sys, os, pwd, os.path$/;"	i
+pwd	fs2_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+pygst	fs2-gui.py	/^    import pygst$/;"	i
+pygst	fs2_gui_net.py	/^    import pygst$/;"	i
+pygtk	fs2-gui.py	/^    import pygtk$/;"	i
+quit	fs2-gui.py	/^    def quit(self, widget):$/;"	m	class:FsUIStartup
+recv_codecs_changed	fs2-gui.py	/^    def recv_codecs_changed(self):$/;"	m	class:FsUIParticipant
+recv_codecs_changed	fs2-gui.py	/^    def recv_codecs_changed(self, codecs):$/;"	m	class:FsUIStream
+reset_audio_codecs	fs2-gui.py	/^    def reset_audio_codecs(self):$/;"	m	class:FsMainUI
+reset_codecs	fs2-gui.py	/^    def reset_codecs(self, combobox, fssession):$/;"	m	class:FsMainUI
+reset_video_codecs	fs2-gui.py	/^    def reset_video_codecs(self):$/;"	m	class:FsMainUI
+send_candidate	fs2_gui_net.py	/^    def send_candidate(self, dest, media, candidate, src=None):$/;"	m	class:FsUIConnect
+send_candidates_done	fs2_gui_net.py	/^    def send_candidates_done(self, dest, media, src=None):$/;"	m	class:FsUIConnect
+send_codecs	fs2_gui_net.py	/^    def send_codecs(self, dest, media, codecs, src=None):$/;"	m	class:FsUIConnect
+send_codecs_to	fs2-gui.py	/^    def send_codecs_to(self, participant):$/;"	m	class:FsUIParticipant
+send_codecs_to	fs2-gui.py	/^    def send_codecs_to(self, participant):$/;"	m	class:FsUIStream
+send_codecs_to	fs2_gui_net.py	/^        def send_codecs_to(self, participant):$/;"	m	class:.TestParticipant
+send_error	fs2_gui_net.py	/^    def send_error(self, dest, src):$/;"	m	class:FsUIConnect
+send_intro	fs2_gui_net.py	/^    def send_intro(self, dest, cname, src=None):$/;"	m	class:FsUIConnect
+send_local_codecs	fs2-gui.py	/^    def send_local_codecs(self):$/;"	m	class:FsUIParticipant
+send_local_codecs	fs2-gui.py	/^    def send_local_codecs(self):$/;"	m	class:FsUIStream
+send_local_codecs	fs2_gui_net.py	/^        def send_local_codecs(self):$/;"	m	class:.TestMedia
+send_local_codecs	fs2_gui_net.py	/^        def send_local_codecs(self):$/;"	m	class:.TestParticipant
+send_stream_codecs	fs2-gui.py	/^    def send_stream_codecs(self):$/;"	m	class:FsUIStream
+send_stream_codecs	fs2-gui.py	/^    def send_stream_codecs(self, codecs, sourcestream):$/;"	m	class:FsUISession
+show_dtmf	fs2-gui.py	/^    def show_dtmf(self, button):$/;"	m	class:FsMainUI
+shutdown	fs2-gui.py	/^    def shutdown(self, widget=None):$/;"	m	class:FsMainUI
+signal	fs2-gui.py	/^import signal$/;"	i
+socket	fs2-gui.py	/^import socket$/;"	i
+socket	fs2_gui_net.py	/^import socket, struct$/;"	i
+startup	fs2-gui.py	/^    startup = FsUIStartup()$/;"	v
+struct	fs2_gui_net.py	/^import socket, struct$/;"	i
+sync_handler	fs2-gui.py	/^    def sync_handler(self, bus, message):$/;"	m	class:FsUIPipeline
+sys	fs2-gui.py	/^import sys, os, pwd, os.path$/;"	i
+sys	fs2_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+threading	fs2-gui.py	/^import threading$/;"	i
+video_combobox_changed_cb	fs2-gui.py	/^    def video_combobox_changed_cb(self, combobox):$/;"	m	class:FsMainUI
+weakref	fs2-gui.py	/^import weakref$/;"	i
