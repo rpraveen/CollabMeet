@@ -14,12 +14,14 @@ except:
 
 import api
 import threading
+import network
 import instance
 
 input_text = None
 chattextview = None
+wTree = None
 
-def print_data(msgtime, sender, msg):
+def append_chat_msg(msgtime, sender, msg):
   msg = msg + "\n"
   msgtime = msgtime.replace('-', ':', 10)
   msg = "[" + msgtime + "] " + sender + ": " + msg
@@ -44,10 +46,31 @@ def button1_clicked(widget):
 def destroy(self, widget):
   print "destroy occured"
 
+def update_image(file):
+  global wTree
+  pixbuf = gtk.gdk.pixbuf_new_from_file(file)
+  width = 300
+  height = 300
+  pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
+  image = wTree.get_widget("image1")
+  image.set_from_pixbuf(pixbuf)
 
-def markui1():
+def update_meeting_info():
+  global wTree
+  meetinginfo = wTree.get_widget("meetinginfo");
+  buf = meetinginfo.get_buffer()
+  msg = ""
+  msg += "< Name: " + instance.name + " >\n"
+  msg += "< Meeting ID: " + str(instance.meeting_id) + " >\n"
+  msg += "\nOnline Members:\n" + instance.name + "\n"
+  for peer in network.get_connection_list():
+    msg += peer + "\n" 
+  buf.set_text(msg)
+
+def gtk_init_ui():
   gladefile="p11.glade"
   wname="markui"
+  global wTree
   wTree=gtk.glade.XML(gladefile,wname)
   dic={"on_button1_clicked":button1_clicked, 
        "on_markui_destroy":(gtk.main_quit),
@@ -59,5 +82,14 @@ def markui1():
   input_text = wTree.get_widget("entry1")
   global chattextview
   chattextview = wTree.get_widget("chattextview");
+
+  update_meeting_info()
+  update_image("google_maps.jpg")
+
+  strs = instance.chat_msgs.split(":")
+  for i in range(1, len(strs)):
+    chat = strs[i].split("#")
+    append_chat_msg(chat[0], chat[1], chat[2])
+
   window.show()
   gtk.main()

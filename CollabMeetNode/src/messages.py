@@ -7,6 +7,7 @@ import time
 import api
 
 def handle_heartbeat(strs):
+  print "Received heartbeat.."
   instance.last_heartbeat_rcvd = time.time()
   if instance.is_master and instance.name != strs[instance.SENDER]:
     master.clear_master()
@@ -21,7 +22,9 @@ def handle_heartbeat(strs):
     d['password'] = val[1]
     d['ip'] = val[2]
     d['port'] = val[3]
-    instance.nodes.append(config.Node(**d)) 
+    instance.nodes.append(config.Node(**d))
+    if val[3] == '0':
+      network.remove_peer(val[0])
   reply = "master:heartbeatreply"
   network.send(instance.curr_master, reply)
   video_name = strs[4 + nodecount]

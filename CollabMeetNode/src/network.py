@@ -17,6 +17,7 @@ import instance
 import master
 import messages
 import urllib2
+import gui
 
 connection_list = dict()
 
@@ -32,7 +33,7 @@ class Receiver(threading.Thread):
       data = self.cs.recv(1024) #blocking
       if not data:  
         break
-      print '[recv]', data
+      #print '[recv]', data
       strs = data.split(':')
       
       instance.gmutex.acquire()
@@ -88,6 +89,7 @@ class ConnectingThread(threading.Thread):
             s.connect((host, port)) #blocking
             instance.gmutex.acquire() 
             connection_list[dest_name]=s
+            gui.update_meeting_info()
             instance.gmutex.release()
             print '[Connected!]', dest_name
           except:
@@ -106,7 +108,7 @@ def send(dst, data):
       s = connection_list[dst]
       s.sendall(msg)
     except:
-      print "Connection error! Removing", dst
+      print "Connection error!"
       remove_peer(dst)
   else:
     print "Error sending message!", dst, "not in connection list!"
@@ -127,8 +129,10 @@ def close_connections():
 
 
 def remove_peer(name):
+  if instance.initialized == False:
+    return
+  print "## Removing peer: " + name
   global connection_list
-  print 'Removing peer', name
   if name in connection_list:
     del connection_list[name]
   if name in instance.heartbeat_time:
@@ -137,7 +141,8 @@ def remove_peer(name):
     if node.name == name:
       instance.nodes[index] = instance.nodes[index]._replace(ip = '0.0.0.0')
       instance.nodes[index] = instance.nodes[index]._replace(port = '0')
-      return
+      break
+  gui.update_meeting_info()
 
 
 def join_meeting():
@@ -151,9 +156,7 @@ def join_meeting():
     connection_list[strs[0]] = sock
     send(strs[0], "master:join:" + "password" + ":" + instance.local_ip + ":" + str(instance.listen_port))
     data = sock.recv(4096)
-    print "Join reply: ", data
     messages.handle_message(data)
-    print "Chat log:", instance.chat_msgs
   except:
     print "Error! Cannot connect to meeting!"
     sys.exit(1)

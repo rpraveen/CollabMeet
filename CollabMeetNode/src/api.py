@@ -2,12 +2,12 @@ import network
 import instance
 import master
 import time
-import p1
+import gui
   
 """ APIs for GUI integration """
 
 def init_gui():
-  p1.markui1()
+  gui.gtk_init_ui()
   pass
 
 
@@ -15,7 +15,7 @@ def send_text_msg(text):
   msg = "node:textmsg:" + text
   instance.gmutex.acquire()
   log_text_msg(instance.name, text)
-  p1.print_data(time.strftime("%H-%M-%S"), instance.name, text)
+  gui.append_chat_msg(time.strftime("%H-%M-%S"), instance.name, text)
   for peer in network.get_connection_list():
     if peer == instance.name:
       continue;
@@ -29,7 +29,7 @@ def log_text_msg(sender, text):
 
 def received_text_msg(sender, text):
   log_text_msg(sender, text)
-  p1.print_data(time.strftime("%H-%M-%S"), sender, text)
+  gui.append_chat_msg(time.strftime("%H-%M-%S"), sender, text)
   pass
 
 
@@ -88,7 +88,6 @@ def disconnect_video_server():
 
 
 def update_video_source(name, ip, port):
-  print "Video source: name:" + name + " ip:" + ip + " port:" + str(port)
   if instance.initialized == True:
     if instance.curr_video_name == name:
       # Ignore this update
