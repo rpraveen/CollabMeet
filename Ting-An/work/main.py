@@ -6,25 +6,20 @@ import instance
 import master
 import time
 import api
-import gobject, gtk
-
-gtk.gdk.threads_init()
-
 
 ############
 #   main   #
 ############
 
 def main():  
-  if len(sys.argv) != 6: 
-    print '<usage> name ip port videoport meetingid'
+  if len(sys.argv) != 5: 
+    print '<usage> name ip port videoport'
     sys.exit(1)
   
   instance.name = sys.argv[1]
   instance.local_ip = sys.argv[2]
   instance.listen_port = int(sys.argv[3])
-  instance.video_port = int(sys.argv[4])
-  instance.meeting_id = int(sys.argv[5])
+  instance.video_port = int(sys.argv[3])
   
   config.parse()
   
@@ -35,26 +30,30 @@ def main():
   
   instance.initialized = True
   
+  api.init_gui()
+  print "### done init_gui() ###"
+  api.init_video_module()
+  
   instance.last_heartbeat_rcvd = time.time()
   instance.master_thread = master.MasterThread()
   
+  print "### 1 ###"
   if instance.curr_video_port != 0:
     api.connect_to_video_server(instance.curr_video_name, instance.curr_video_ip, instance.curr_video_port)
   
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   network.ListeningThread(s)
   network.ConnectingThread()
-  
-  api.init_gui()
-  
+
+  print "### 2 ###"
+  print "### I am up ###" 
   while 1:
     try:
-      command = raw_input()
+      command = raw_input(">>>")
       if len(command) == 0:
         continue
       commands = command.split(':')
       if commands[0] == 'q':
-        print "Quitting.."
         instance.has_exited = True
         network.close_connections()
         sys.exit(0)
