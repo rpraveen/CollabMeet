@@ -703,7 +703,6 @@ class FsMainUI:
     "The main UI and its different callbacks"
     
     def __init__(self, mode, ip, port):
-        print "1"
         self.mode = mode
         self.pipeline = FsUIPipeline()
         self.pipeline.codecs_changed_audio = self.reset_audio_codecs
@@ -714,34 +713,24 @@ class FsMainUI:
         self.mainwindow = self.builder.get_object("main_window")
         self.audio_combobox = self.builder.get_object("audio_combobox")
         self.video_combobox = self.builder.get_object("video_combobox")
-        print "2"
         liststore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
-        print "2.1"
         self.audio_combobox.set_model(liststore)
-        print "2.2"
         cell = gtk.CellRendererText()
-        print "2.3"
         self.audio_combobox.pack_start(cell, True)
-        print "2.4"
         self.audio_combobox.add_attribute(cell, 'text', 0)
-        print "2.5"
         self.reset_audio_codecs()
-        print "3"
         liststore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
         self.video_combobox.set_model(liststore)
         cell = gtk.CellRendererText()
         self.video_combobox.pack_start(cell, True)
         self.video_combobox.add_attribute(cell, 'text', 0)
         self.reset_video_codecs()
-        print "in FsMainUI __init__, before if mode == ..."
         if mode == CLIENT:
-            print "in FsMainUI, CLIENT! before FsUIClient"
             self.client = FsUIClient(ip, port, FsUIParticipant,
                                      self.pipeline, self)
             self.builder.get_object("info_label").set_markup(
                 "Connected to %s:%s" % (ip, port))
         elif mode == SERVER:
-            print "in FsMainUI, SERVER! before FsUIListener"
             self.server = FsUIListener(port, FsUIServer, FsUIParticipant,
                                        self.pipeline, self)
             self.builder.get_object("info_label").set_markup(
