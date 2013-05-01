@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sys, os, pwd, os.path
+import sys, os, pwd, os.path, time
 import socket
 import threading
 import weakref
@@ -703,6 +703,7 @@ class FsMainUI:
     "The main UI and its different callbacks"
     
     def __init__(self, mode, ip, port):
+        print "1"
         self.mode = mode
         self.pipeline = FsUIPipeline()
         self.pipeline.codecs_changed_audio = self.reset_audio_codecs
@@ -713,25 +714,34 @@ class FsMainUI:
         self.mainwindow = self.builder.get_object("main_window")
         self.audio_combobox = self.builder.get_object("audio_combobox")
         self.video_combobox = self.builder.get_object("video_combobox")
+        print "2"
         liststore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
+        print "2.1"
         self.audio_combobox.set_model(liststore)
+        print "2.2"
         cell = gtk.CellRendererText()
+        print "2.3"
         self.audio_combobox.pack_start(cell, True)
+        print "2.4"
         self.audio_combobox.add_attribute(cell, 'text', 0)
+        print "2.5"
         self.reset_audio_codecs()
+        print "3"
         liststore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
         self.video_combobox.set_model(liststore)
         cell = gtk.CellRendererText()
         self.video_combobox.pack_start(cell, True)
         self.video_combobox.add_attribute(cell, 'text', 0)
         self.reset_video_codecs()
-
+        print "in FsMainUI __init__, before if mode == ..."
         if mode == CLIENT:
+            print "in FsMainUI, CLIENT! before FsUIClient"
             self.client = FsUIClient(ip, port, FsUIParticipant,
                                      self.pipeline, self)
             self.builder.get_object("info_label").set_markup(
                 "Connected to %s:%s" % (ip, port))
         elif mode == SERVER:
+            print "in FsMainUI, SERVER! before FsUIListener"
             self.server = FsUIListener(port, FsUIServer, FsUIParticipant,
                                        self.pipeline, self)
             self.builder.get_object("info_label").set_markup(
@@ -821,55 +831,86 @@ class FsMainUI:
 class FsUIStartup:
     "Displays the startup window and then creates the FsMainUI"
     
-    def __init__(self):
-        self.builder = gtk.Builder()
-        self.builder.add_from_file(builderprefix + "startup.ui")
-        self.dialog = self.builder.get_object("neworconnect_dialog")
-        self.builder.get_object("spinbutton_adjustment").set_value(9893)
-        self.builder.connect_signals(self)
-        self.dialog.show()
-        self.acted = False
+    def __init__(self, mode, ip, port):
+		if mode == 's':
+			mode = SERVER
+		elif mode == 'c':
+			mode = CLIENT
+		else:
+			Usage()
+			sys.exit(1)
+		self.builder = gtk.Builder()
+		self.builder.add_from_file(builderprefix + "startup.ui")
+		self.dialog = self.builder.get_object("neworconnect_dialog")
+		self.builder.get_object("spinbutton_adjustment").set_value(9893)
+		self.builder.connect_signals(self)
+# self.dialog.show()
+		self.acted = False
+		self.action(mode, ip, port)
 
-    def action(self, mode):
-        port = int(self.builder.get_object("spinbutton_adjustment").get_value())
-        ip = self.builder.get_object("newip_entry").get_text()
-        try:
-            self.ui = FsMainUI(mode, ip, port)
-            self.acted = True
-            self.dialog.destroy()
-            del self.dialog
-            del self.builder
-        except socket.error, e:
-            dialog = gtk.MessageDialog(self.dialog,
-                                       gtk.DIALOG_MODAL,
-                                       gtk.MESSAGE_ERROR,
-                                       gtk.BUTTONS_OK)
-            dialog.set_markup("<b>Could not connect to %s %d</b>" % (ip,port))
-            dialog.format_secondary_markup(e[1])
-            dialog.run()
-            dialog.destroy()
+    def action(self, mode, ip, port):
+#       port = int(self.builder.get_object("spinbutton_adjustment").get_value())
+#       ip = self.builder.get_object("newip_entry").get_text()
+       try:
+           self.ui = FsMainUI(mode, ip, port)
+           self.acted = True
+           self.dialog.destroy()
+           del self.dialog
+           del self.builder
+       except socket.error, e:
+           dialog = gtk.MessageDialog(self.dialog,
+                                      gtk.DIALOG_MODAL,
+                                      gtk.MESSAGE_ERROR,
+                                      gtk.BUTTONS_OK)
+           dialog.set_markup("<b>Could not connect to %s %d</b>" % (ip,port))
+           dialog.format_secondary_markup(e[1])
+           dialog.run()
+           dialog.destroy()
+           sys.exit(1)
         
     def new_server(self, widget):
         self.action(SERVER)
 
     def connect(self, widget):
         self.action(CLIENT)
-        
 
     def quit(self, widget):
         if not self.acted:
             gtk.main_quit()
 
 
+def Usage():
+	print "For server: ",
+	print "$ %s s <port> [/dev/video0]" % (sys.argv[0])
+	print "For client: ",
+	print "$ %s c <ip> <port> [/dev/video0]" % (sys.argv[0])
 
 
 if __name__ == "__main__":
-    if len(sys.argv) >= 2:
-        CAMERA = sys.argv[1]
-    else:
-        CAMERA = None
-    
-    gobject.threads_init()
-    gtk.gdk.threads_init()
-    startup = FsUIStartup()
-    gtk.main()
+	if len(sys.argv) < 3:
+		Usage()
+		sys.exit(1);
+	mode = sys.argv[1]
+	ip = "127.0.1.1"
+	port = 9999
+	if mode == 's':
+		port = int(sys.argv[2])
+		if len(sys.argv) >= 4:
+			CAMERA = sys.argv[3]
+		else:
+			CAMERA = None
+	elif mode == 'c':
+		ip = sys.argv[2]
+		port = int(sys.argv[3])
+		if len(sys.argv) >= 5:
+			CAMERA = sys.argv[4]
+		else:
+			CAMERA = None
+	else:
+		Usage();
+		sys.exit(1);
+	
+	gobject.threads_init()
+	gtk.gdk.threads_init()
+	startup = FsUIStartup(mode, ip, port)
+	gtk.main()

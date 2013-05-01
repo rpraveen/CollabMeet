@@ -5,6 +5,9 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 AUDIO	fs-gui.py	/^AUDIO=True$/;"	v
+CAMERA	fs-gui.py	/^			CAMERA = None$/;"	v
+CAMERA	fs-gui.py	/^			CAMERA = sys.argv[3]$/;"	v
+CAMERA	fs-gui.py	/^			CAMERA = sys.argv[4]$/;"	v
 CAMERA	fs-gui.py	/^CAMERA=True$/;"	v
 CANDIDATE	fs_gui_net.py	/^    CANDIDATE = 2$/;"	v	class:FsUIConnect
 CANDIDATES_DONE	fs_gui_net.py	/^    CANDIDATES_DONE = 3$/;"	v	class:FsUIConnect
@@ -28,11 +31,17 @@ FsUISource	fs-gui.py	/^class FsUISource:$/;"	c
 FsUIStartup	fs-gui.py	/^class FsUIStartup:$/;"	c
 FsUIStream	fs-gui.py	/^class FsUIStream:$/;"	c
 FsUIVideoSource	fs-gui.py	/^class FsUIVideoSource(FsUISource):$/;"	c
+GTK_Main	client.py	/^class GTK_Main:$/;"	c
 INTRO	fs_gui_net.py	/^    INTRO = 4$/;"	v	class:FsUIConnect
+Init	fs-gui.py	/^def Init(mode):$/;"	f
+OnPlay	client.py	/^	def OnPlay(self, widget):$/;"	m	class:GTK_Main
+OnQuit	client.py	/^	def OnQuit(self, widget):$/;"	m	class:GTK_Main
+OnStop	client.py	/^	def OnStop(self, widget):$/;"	m	class:GTK_Main
 SERVER	fs-gui.py	/^SERVER=2$/;"	v
 TRANSMITTER	fs-gui.py	/^TRANSMITTER="nice"$/;"	v
 TestMedia	fs_gui_net.py	/^    class TestMedia:$/;"	c
 TestParticipant	fs_gui_net.py	/^    class TestParticipant:$/;"	c
+Usage	fs-gui.py	/^def Usage():$/;"	f
 VIDEO	fs-gui.py	/^VIDEO=True$/;"	v
 __candidate	fs_gui_net.py	/^    def __candidate(self, src, dest, media, data):$/;"	m	class:FsUIClient	file:
 __candidate	fs_gui_net.py	/^    def __candidate(self, src, dest, media, data):$/;"	m	class:FsUIServer	file:
@@ -53,6 +62,7 @@ __del__	fs_gui_net.py	/^    def __del__(self):$/;"	m	class:FsUIConnect	file:
 __error	fs_gui_net.py	/^    def __error(self, participantid, *arg):$/;"	m	class:FsUIClient	file:
 __error	fs_gui_net.py	/^    def __error(self, participantid, *args):$/;"	m	class:FsUIServer	file:
 __error	fs_gui_net.py	/^    def __error(self, source, condition):$/;"	m	class:FsUIConnect	file:
+__init__	client.py	/^	def __init__(self, host_ip, port):$/;"	m	class:GTK_Main
 __init__	fs-gui.py	/^    def __init__(self):$/;"	m	class:FsUIStartup
 __init__	fs-gui.py	/^    def __init__(self, conference, source):$/;"	m	class:FsUISession
 __init__	fs-gui.py	/^    def __init__(self, connect, id, pipeline, mainui):$/;"	m	class:FsUIParticipant
@@ -88,6 +98,7 @@ candidates_done	fs_gui_net.py	/^        def candidates_done(self):$/;"	m	class:.
 candidates_done	fs_gui_net.py	/^        def candidates_done(self, media):$/;"	m	class:.TestParticipant
 check_send_local_codecs	fs-gui.py	/^    def check_send_local_codecs(self):$/;"	m	class:FsUIStream
 client	fs_gui_net.py	/^        client = FsUIClient("127.0.0.1", int(sys.argv[1]),$/;"	v	class:.TestParticipant
+client	server.py	/^client = gst.element_factory_make("tcpclientsink", "client")$/;"	v
 codecs	fs-gui.py	/^    def codecs(self, codecs):$/;"	m	class:FsUIStream
 codecs	fs-gui.py	/^    def codecs(self, media, codecs):$/;"	m	class:FsUIParticipant
 codecs	fs_gui_net.py	/^        def codecs(self, codecs):$/;"	m	class:.TestMedia
@@ -97,13 +108,9 @@ codecs_changed	fs-gui.py	/^    def codecs_changed(self):$/;"	m	class:FsUIStream
 combobox_changed_cb	fs-gui.py	/^    def combobox_changed_cb(self, combobox, fssession):$/;"	m	class:FsMainUI
 connect	fs-gui.py	/^    def connect(self, widget):$/;"	m	class:FsUIStartup
 data_in	fs_gui_net.py	/^    def data_in(self, source, condition):$/;"	m	class:FsUIListener
+decodebin_pad_added	client.py	/^	def decodebin_pad_added(self, decodebin, pad):$/;"	m	class:GTK_Main
 destroy	fs-gui.py	/^    def destroy(self):$/;"	m	class:FsUIParticipant
 destroy	fs_gui_net.py	/^        def destroy(self):$/;"	m	class:.TestParticipant
-dtmf_destroy	fs-gui.py	/^    def dtmf_destroy(self, button):$/;"	m	class:FsMainUI
-dtmf_start	fs-gui.py	/^    def dtmf_start(self, button):$/;"	m	class:FsMainUI
-dtmf_start	fs-gui.py	/^    def dtmf_start(self, event):$/;"	m	class:FsUISession
-dtmf_stop	fs-gui.py	/^    def dtmf_stop(self):$/;"	m	class:FsUISession
-dtmf_stop	fs-gui.py	/^    def dtmf_stop(self, button):$/;"	m	class:FsMainUI
 element_added_cb	fs-gui.py	/^    def element_added_cb(self, notifier, bin, element):$/;"	m	class:FsUIPipeline
 error	fs-gui.py	/^    def error(self):$/;"	m	class:FsUIParticipant
 error	fs_gui_net.py	/^        def error(self):$/;"	m	class:.TestParticipant
@@ -121,20 +128,27 @@ get_src_pad	fs-gui.py	/^    def get_src_pad(self, name="src%d"):$/;"	m	class:FsU
 get_type	fs-gui.py	/^    def get_type(self):$/;"	m	class:FsUIAudioSource
 get_type	fs-gui.py	/^    def get_type(self):$/;"	m	class:FsUISource
 get_type	fs-gui.py	/^    def get_type(self):$/;"	m	class:FsUIVideoSource
+gobject	client.py	/^import pygtk, gtk, gobject$/;"	i
 gobject	fs-gui.py	/^    import gobject$/;"	i
 gobject	fs-gui.py	/^    import gtk, gobject, gtk.gdk$/;"	i
 gobject	fs_gui_net.py	/^import gobject$/;"	i
+gobject	server.py	/^import gobject, pygst$/;"	i
+gst	client.py	/^import gst$/;"	i
 gst	fs-gui.py	/^    import gst$/;"	i
 gst	fs_gui_net.py	/^    import gst$/;"	i
+gst	server.py	/^import gst, sys$/;"	i
+gtk	client.py	/^import pygtk, gtk, gobject$/;"	i
 gtk	fs-gui.py	/^    import gtk, gobject, gtk.gdk$/;"	i
 have_size	fs-gui.py	/^    def have_size(self, pad, buffer):$/;"	m	class:FsUIParticipant
 have_size	fs-gui.py	/^    def have_size(self, pad, buffer, callback):$/;"	m	class:FsUIPipeline
 hbox_add	fs-gui.py	/^    def hbox_add(self, widget, label):$/;"	m	class:FsMainUI
 int_handler	fs-gui.py	/^    def int_handler(self, sig, frame):$/;"	m	class:FsUIPipeline
+ip	fs-gui.py	/^		ip = sys.argv[2]$/;"	v
 link_audio_sink	fs-gui.py	/^    def link_audio_sink(self, pad):$/;"	m	class:FsUIPipeline
 link_video_sink	fs-gui.py	/^    def link_video_sink(self, pad):$/;"	m	class:FsUIParticipant
 listener	fs_gui_net.py	/^        listener = FsUIListener(9893, FsUIServer, TestParticipant)$/;"	v	class:.TestParticipant
 local_candidates_prepared	fs-gui.py	/^    def local_candidates_prepared(self):$/;"	m	class:FsUIStream
+loop	server.py	/^loop = gobject.MainLoop()$/;"	v
 mainloop	fs_gui_net.py	/^    mainloop = gobject.MainLoop()$/;"	v
 make_source	fs-gui.py	/^    def make_source(self):$/;"	m	class:FsUIAudioSource
 make_source	fs-gui.py	/^    def make_source(self):$/;"	m	class:FsUISource
@@ -147,16 +161,25 @@ new_server	fs-gui.py	/^    def new_server(self, widget):$/;"	m	class:FsUIStartup
 new_stream	fs-gui.py	/^    def new_stream(self, id, participant):$/;"	m	class:FsUISession
 newsize	fs-gui.py	/^    def newsize (self, x, y):$/;"	m	class:FsMainUI
 nextid	fs_gui_net.py	/^    nextid = 2$/;"	v	class:FsUIServer
+on_message	client.py	/^	def on_message(self, bus, message):$/;"	m	class:GTK_Main
+on_sync_message	client.py	/^	def on_sync_message(self, bus, message):$/;"	m	class:GTK_Main
+os	client.py	/^import sys, os$/;"	i
 os	fs-gui.py	/^import sys, os, pwd, os.path$/;"	i
 os	fs_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
 participants	fs_gui_net.py	/^    participants = {}$/;"	v	class:FsUIServer
 path	fs-gui.py	/^import sys, os, pwd, os.path$/;"	i
 path	fs_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+pipeline	server.py	/^pipeline = gst.Pipeline("client")$/;"	v
+port	fs-gui.py	/^		port = int(sys.argv[2])$/;"	v
+port	fs-gui.py	/^		port = int(sys.argv[3])$/;"	v
 put_src_pad	fs-gui.py	/^    def put_src_pad(self, pad):$/;"	m	class:FsUISource
 pwd	fs-gui.py	/^import sys, os, pwd, os.path$/;"	i
 pwd	fs_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+pygst	client.py	/^import pygst$/;"	i
 pygst	fs-gui.py	/^    import pygst$/;"	i
 pygst	fs_gui_net.py	/^    import pygst$/;"	i
+pygst	server.py	/^import gobject, pygst$/;"	i
+pygtk	client.py	/^import pygtk, gtk, gobject$/;"	i
 pygtk	fs-gui.py	/^    import pygtk$/;"	i
 quit	fs-gui.py	/^    def quit(self, widget):$/;"	m	class:FsUIStartup
 recv_codecs_changed	fs-gui.py	/^    def recv_codecs_changed(self):$/;"	m	class:FsUIParticipant
@@ -178,16 +201,19 @@ send_local_codecs	fs_gui_net.py	/^        def send_local_codecs(self):$/;"	m	cla
 send_local_codecs	fs_gui_net.py	/^        def send_local_codecs(self):$/;"	m	class:.TestParticipant
 send_stream_codecs	fs-gui.py	/^    def send_stream_codecs(self):$/;"	m	class:FsUIStream
 send_stream_codecs	fs-gui.py	/^    def send_stream_codecs(self, codecs, sourcestream):$/;"	m	class:FsUISession
-show_dtmf	fs-gui.py	/^    def show_dtmf(self, button):$/;"	m	class:FsMainUI
 shutdown	fs-gui.py	/^    def shutdown(self, widget=None):$/;"	m	class:FsMainUI
 signal	fs-gui.py	/^import signal$/;"	i
 socket	fs-gui.py	/^import socket$/;"	i
 socket	fs_gui_net.py	/^import socket, struct$/;"	i
-startup	fs-gui.py	/^    startup = FsUIStartup()$/;"	v
+src	server.py	/^src = gst.element_factory_make("filesrc", "source")$/;"	v
+start_stop	client.py	/^	def start_stop(self, w):$/;"	m	class:GTK_Main
+startup	fs-gui.py	/^	startup = FsUIStartup()$/;"	v
 struct	fs_gui_net.py	/^import socket, struct$/;"	i
 sync_handler	fs-gui.py	/^    def sync_handler(self, bus, message):$/;"	m	class:FsUIPipeline
+sys	client.py	/^import sys, os$/;"	i
 sys	fs-gui.py	/^import sys, os, pwd, os.path$/;"	i
 sys	fs_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+sys	server.py	/^import gst, sys$/;"	i
 threading	fs-gui.py	/^import threading$/;"	i
 video_combobox_changed_cb	fs-gui.py	/^    def video_combobox_changed_cb(self, combobox):$/;"	m	class:FsMainUI
 weakref	fs-gui.py	/^import weakref$/;"	i
