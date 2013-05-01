@@ -1,18 +1,22 @@
 import network
 import instance
 import master
-import p1
+import time
+import gui
+import config
   
 """ APIs for GUI integration """
 
-def init_gui():
-  p1.markui1()
+def init_gui(mode, local_ip, video_port, camera):
+  gui.gtk_init_ui(mode, local_ip, video_port, camera)
   pass
 
 
 def send_text_msg(text):
   msg = "node:textmsg:" + text
   instance.gmutex.acquire()
+  log_text_msg(instance.name, text)
+  gui.append_chat_msg(time.strftime("%H-%M-%S"), instance.name, text)
   for peer in network.get_connection_list():
     if peer == instance.name:
       continue;
@@ -20,16 +24,31 @@ def send_text_msg(text):
   instance.gmutex.release()
 
 
+def log_text_msg(sender, text):
+  instance.chat_msgs += ":" + time.strftime("%H-%M-%S") + "#" + sender + "#" + text
+
+
 def received_text_msg(sender, text):
-  print "Text message: sender:" + sender + " text:" + text
-  p1.print_data(sender, text)
+  log_text_msg(sender, text)
+  gui.append_chat_msg(time.strftime("%H-%M-%S"), sender, text)
   pass
 
 
 def update_map_loc(name, latitude, longitude):
-  print "Mobile location update: sender:" + name + " latitude:" + latitude + " longitude:" + longitude
-  #TODO: update GUI
-  pass
+  strs = instance.map_loc.split(":")
+  new_map_loc = "map"
+  found = False
+  for i in range(1, len(strs)):
+    loc = strs[i]
+    data = loc.split("#")
+    if data[0] == name:
+      found = True
+      new_map_loc += ":" + name + "#" + latitude + "#" + longitude + "#" + chr(65 + config.get_node_index(name))
+    else:
+      new_map_loc += ":" + loc
+  if found == False:
+    new_map_loc += ":" + name + "#" + latitude + "#" + longitude + "#" + chr(65 + config.get_node_index(name))
+  instance.map_loc = new_map_loc
 
 
 """ APIs for video multicasting """
@@ -81,7 +100,6 @@ def disconnect_video_server():
 
 
 def update_video_source(name, ip, port):
-  print "Video source: name:" + name + " ip:" + ip + " port:" + str(port)
   if instance.initialized == True:
     if instance.curr_video_name == name:
       # Ignore this update

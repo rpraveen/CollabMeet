@@ -15,10 +15,7 @@ tmp/**/*
 WhatsCookingClient/gen/com/facebook/android/R.java
 */R.java
 */.classpath
-<<<<<<< HEAD
 facebook/gen/com/facebook/android/R.java
 *.pyc
-=======
-facebook/gen/com/facebook/android/R.java
 */.DS_Store
->>>>>>> maps update
+*_map.png

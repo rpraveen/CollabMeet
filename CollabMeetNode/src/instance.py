@@ -19,8 +19,11 @@ curr_video_name = 'none'
 curr_video_ip = '0.0.0.0'
 curr_video_port = 0
 initialized = False
+gui_inited = False
 
-chat_msgs = ""
+chat_msgs = "chat"
+
+map_loc = "map"
 
 gmutex = threading.Lock()
 

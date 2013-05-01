@@ -1,0 +1,122 @@
+#!/usr/bin/env python
+try:
+  import pygtk
+  pygtk.required("2.0");
+except:
+  pass
+
+try:
+  import gtk
+  import gtk.glade
+except:
+  print "need pyGTK  and glade"
+  sys.exit(1)
+
+import api
+import threading
+import network
+import instance
+import config
+import gobject
+import fs_gui
+
+input_text = None
+chattextview = None
+wTree = None
+gladefile = "p11.glade"
+wname = "markui"
+
+def append_chat_msg(msgtime, sender, msg):
+  if instance.gui_inited == False:
+    return
+  msg = msg + "\n"
+  msgtime = msgtime.replace('-', ':', 10)
+  msg = "[" + msgtime + "] " + sender + ": " + msg
+  global chattextview
+  buf = chattextview.get_buffer()
+  buf.insert(buf.get_end_iter(), msg)
+
+def send_message(message = None):
+  global input_text
+  text = input_text.get_text()
+  api.send_text_msg(text) #send over the network
+
+def on_entry1_key_press_event(widg, event):
+  if event.keyval == gtk.keysyms.Return:
+    send_message()
+    global input_text
+    input_text.set_text("")
+  
+def button1_clicked(widget):
+  send_message(None)
+
+def destroy(self, widget):
+  print "destroy occured"
+
+def update_image(file):
+  if instance.gui_inited == False:
+    return
+  global wTree
+  pixbuf = gtk.gdk.pixbuf_new_from_file(file)
+  width = 300
+  height = 300
+  pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
+  image = wTree.get_object("image1")
+  image.set_from_pixbuf(pixbuf)
+
+def update_meeting_info():
+  if instance.gui_inited == False:
+    return
+  global wTree
+  meetinginfo = wTree.get_object("meetinginfo");
+  buf = meetinginfo.get_buffer()
+  msg = ""
+  msg += "< Name: " + instance.name + " >\n"
+  msg += "< Meeting ID: " + str(instance.meeting_id) + " >\n"
+  msg += "\nOnline Members:\n" + instance.name + "\n"
+  for peer in network.get_connection_list():
+    msg += peer + "\n"
+  msg += "\nAll Members:\n"
+  for node in instance.nodes:
+    msg += chr(65 + config.get_node_index(node.name)) + ") " + node.name + "\n" 
+  buf.set_text(msg)
+
+
+def gtk_init_ui(mode, local_ip, video_port, camera):
+  global wTree
+  
+  gobject.threads_init()
+  gtk.gdk.threads_init()
+  startup = fs_gui.FsUIStartup(gladefile, wname, mode, local_ip, video_port, camera)
+
+  wTree = startup.ui.builder
+  dic={"on_button1_clicked": button1_clicked, 
+     "on_markui_destroy": gtk.main_quit,
+     "on_entry1_key_press_event": on_entry1_key_press_event,
+     "destroy":destroy,
+     "video_combobox_changed_cb" : startup.ui.reset_video_codecs,
+     "audio_combobox_changed_cb" : startup.ui.reset_audio_codecs,
+     "exposed" : startup.ui.exposed,
+     "shutdown"	 :  startup.ui.shutdown#gtk.main_quit,
+  }
+  wTree.connect_signals(dic)
+  global input_text
+  global chattextview
+  input_text = wTree.get_object("entry1")
+  chattextview = wTree.get_object("chattextview");
+
+  instance.gmutex.acquire()
+  instance.gui_inited = True
+  update_meeting_info()
+  instance.gmutex.release()
+
+  update_image("google_maps.jpg")
+
+  strs = instance.chat_msgs.split(":")
+  for i in range(1, len(strs)):
+    chat = strs[i].split("#")
+    append_chat_msg(chat[0], chat[1], chat[2])
+  
+#  window.show()
+  startup.ui.mainwindow.show()
+  gtk.main()
