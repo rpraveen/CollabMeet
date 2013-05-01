@@ -7,8 +7,8 @@ import config
   
 """ APIs for GUI integration """
 
-def init_gui():
-  gui.gtk_init_ui()
+def init_gui(mode, local_ip, video_port, camera):
+  gui.gtk_init_ui(mode, local_ip, video_port, camera)
   pass
 
 
