@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 import socket
 import network
@@ -18,7 +19,7 @@ gtk.gdk.threads_init()
 
 def main():  
   if len(sys.argv) != 6: 
-    print '<usage> name ip port videoport meetingid'
+    print '<usage> $ %s node_name ip port videoport meetingid' % sys.argv[0]
     sys.exit(1)
   
   instance.name = sys.argv[1]
