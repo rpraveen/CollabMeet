@@ -57,14 +57,14 @@ def update_image(file):
   width = 300
   height = 300
   pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
-  image = wTree.get_widget("image1")
+  image = wTree.get_object("image1")
   image.set_from_pixbuf(pixbuf)
 
 def update_meeting_info():
   if instance.gui_inited == False:
     return
   global wTree
-  meetinginfo = wTree.get_widget("meetinginfo");
+  meetinginfo = wTree.get_object("meetinginfo");
   buf = meetinginfo.get_buffer()
   msg = ""
   msg += "< Name: " + instance.name + " >\n"
@@ -79,19 +79,22 @@ def update_meeting_info():
 
 def gtk_init_ui():
   gladefile="p11.glade"
-  wname="markui"
+#  wname="markui"
   global wTree
-  wTree=gtk.glade.XML(gladefile,wname)
-  dic={"on_button1_clicked":button1_clicked, 
-       "on_markui_destroy":(gtk.main_quit),
-       "on_entry1_key_press_event":on_entry1_key_press_event,
-       "destroy":destroy}
-  wTree.signal_autoconnect(dic)
-  window = wTree.get_widget("markui")
+#  wTree=gtk.glade.XML(gladefile,wname)
+  wTree = gtk.Builder()
+  wTree.add_from_file(gladefile)
+  dic={"on_button1_clicked": button1_clicked, 
+       "on_markui_destroy": gtk.main_quit,
+       "on_entry1_key_press_event": on_entry1_key_press_event,
+       "destroy":destroy, }
+#  wTree.signal_autoconnect(dic)
+  wTree.connect_signals(dic)
+  window = wTree.get_object("markui")
   global input_text
-  input_text = wTree.get_widget("entry1")
+  input_text = wTree.get_object("entry1")
   global chattextview
-  chattextview = wTree.get_widget("chattextview");
+  chattextview = wTree.get_object("chattextview");
 
   instance.gmutex.acquire()
   instance.gui_inited = True
