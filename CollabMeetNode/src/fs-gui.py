@@ -40,7 +40,7 @@ from fs_gui_net import  FsUIClient, FsUIListener, FsUIServer
 
 CAMERA=True
 
-AUDIO=False
+AUDIO=True
 VIDEO=True
 
 CLIENT=1
@@ -596,10 +596,10 @@ class FsUIParticipant:
         if not VIDEO:
             return
         try:
-            self.outcv.acquire()
             self.videosink.get_by_interface(gst.interfaces.XOverlay).expose()
         except AttributeError:
             try:
+                self.outcv.acquire()
                 self.videosink = make_video_sink(self.pipeline.pipeline,
                                                  widget.window.xid,
                                                  "uservideosink")
@@ -613,9 +613,7 @@ class FsUIParticipant:
                 self.funnel.set_state(gst.STATE_PLAYING)
                 self.outcv.notifyAll()
             finally:
-                pass
-        finally:
-            self.outcv.release()
+                self.outcv.release()
             
 
     def have_size(self, pad, buffer):
@@ -641,13 +639,12 @@ class FsUIParticipant:
             self.outcv.acquire()
             while self.funnel is None:
                 self.outcv.wait()
+            time.sleep(5)
             print >>sys.stderr, "LINKING VIDEO SINK"
             pad.link(self.funnel.get_pad("sink%d"))
         finally:
             self.outcv.release()
-            self.videosink.set_state(gst.STATE_PLAYING)
-            self.funnel.set_state(gst.STATE_PLAYING)
- 
+
     def destroy(self):
         if VIDEO:
             try:
