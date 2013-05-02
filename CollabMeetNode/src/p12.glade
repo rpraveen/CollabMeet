@@ -189,7 +189,7 @@
                 <property name="can_focus">True</property>
                 <property name="extension_events">cursor</property>
                 <property name="year">2013</property>
-                <property name="month">5</property>
+                <property name="month">4</property>
                 <property name="day">2</property>
               </object>
               <packing>
