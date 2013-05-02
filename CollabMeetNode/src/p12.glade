@@ -163,13 +163,19 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkLabel" id="label2">
+              <object class="GtkEventBox" id="eventbox1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Master</property>
-                <attributes>
-                  <attribute name="foreground" value="#1655ea8158dc"/>
-                </attributes>
+                <child>
+                  <object class="GtkLabel" id="label2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Master</property>
+                    <attributes>
+                      <attribute name="foreground" value="#0c1e18290fe5"/>
+                    </attributes>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">True</property>
