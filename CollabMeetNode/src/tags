@@ -4,15 +4,40 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+AUDIO	fs-gui.py	/^AUDIO=True$/;"	v
 AddressMarker	map_decode.py	/^from motionless import AddressMarker, LatLonMarker,DecoratedMap, CenterMap, VisibleMap$/;"	i
+CAMERA	fs-gui.py	/^CAMERA=True$/;"	v
+CANDIDATE	fs_gui_net.py	/^    CANDIDATE = 2$/;"	v	class:FsUIConnect
+CANDIDATES_DONE	fs_gui_net.py	/^    CANDIDATES_DONE = 3$/;"	v	class:FsUIConnect
+CLIENT	fs-gui.py	/^CLIENT=1$/;"	v
+CODECS	fs_gui_net.py	/^    CODECS = 1$/;"	v	class:FsUIConnect
 CONN_RETRY_SECS	instance.py	/^CONN_RETRY_SECS = 5$/;"	v
 CenterMap	map_decode.py	/^from motionless import AddressMarker, LatLonMarker,DecoratedMap, CenterMap, VisibleMap$/;"	i
 ConnectingThread	network.py	/^class ConnectingThread(threading.Thread):$/;"	c
 DecoratedMap	map_decode.py	/^from motionless import AddressMarker, LatLonMarker,DecoratedMap, CenterMap, VisibleMap$/;"	i
+ERROR	fs_gui_net.py	/^    ERROR = 0$/;"	v	class:FsUIConnect
+FsMainUI	fs-gui.py	/^class FsMainUI:$/;"	c
+FsUIAudioSource	fs-gui.py	/^class FsUIAudioSource(FsUISource):$/;"	c
+FsUIClient	fs-gui.py	/^from fs_gui_net import  FsUIClient, FsUIListener, FsUIServer$/;"	i
+FsUIClient	fs_gui_net.py	/^class FsUIClient:$/;"	c
+FsUIConnect	fs_gui_net.py	/^class FsUIConnect:$/;"	c
+FsUIConnectClient	fs_gui_net.py	/^class FsUIConnectClient (FsUIConnect):$/;"	c
+FsUIListener	fs-gui.py	/^from fs_gui_net import  FsUIClient, FsUIListener, FsUIServer$/;"	i
+FsUIListener	fs_gui_net.py	/^class FsUIListener:$/;"	c
+FsUIParticipant	fs-gui.py	/^class FsUIParticipant:$/;"	c
+FsUIPipeline	fs-gui.py	/^class FsUIPipeline:$/;"	c
+FsUIServer	fs-gui.py	/^from fs_gui_net import  FsUIClient, FsUIListener, FsUIServer$/;"	i
+FsUIServer	fs_gui_net.py	/^class FsUIServer:$/;"	c
+FsUISession	fs-gui.py	/^class FsUISession:$/;"	c
+FsUISource	fs-gui.py	/^class FsUISource:$/;"	c
+FsUIStartup	fs-gui.py	/^class FsUIStartup:$/;"	c
+FsUIStream	fs-gui.py	/^class FsUIStream:$/;"	c
+FsUIVideoSource	fs-gui.py	/^class FsUIVideoSource(FsUISource):$/;"	c
 Geocoder	map_decode.py	/^from pygeocoder import Geocoder$/;"	i
 GoogleMaps	map_decode.py	/^from googlemaps import GoogleMaps$/;"	i
 HEARTBEAT_SECS	instance.py	/^HEARTBEAT_SECS = 5$/;"	v
 HEARTBEAT_TIMEOUT	instance.py	/^HEARTBEAT_TIMEOUT = 15$/;"	v
+INTRO	fs_gui_net.py	/^    INTRO = 4$/;"	v	class:FsUIConnect
 LatLonMarker	map_decode.py	/^from motionless import AddressMarker, LatLonMarker,DecoratedMap, CenterMap, VisibleMap$/;"	i
 ListeningThread	network.py	/^class ListeningThread(threading.Thread):$/;"	c
 MODULE	instance.py	/^MODULE = 1$/;"	v
@@ -23,51 +48,150 @@ NODECOUNT	instance.py	/^NODECOUNT = 3$/;"	v
 Node	config.py	/^Node = namedtuple('Node','name password ip port')$/;"	v
 Receiver	network.py	/^class Receiver(threading.Thread):$/;"	c
 SENDER	instance.py	/^SENDER = 0$/;"	v
+SERVER	fs-gui.py	/^SERVER=2$/;"	v
+TRANSMITTER	fs-gui.py	/^TRANSMITTER="nice"$/;"	v
+TestMedia	fs_gui_net.py	/^    class TestMedia:$/;"	c
+TestParticipant	fs_gui_net.py	/^    class TestParticipant:$/;"	c
+Usage	fs-gui.py	/^def Usage():$/;"	f
+VIDEO	fs-gui.py	/^VIDEO=True$/;"	v
+VIDEO_ENABLED	instance.py	/^VIDEO_ENABLED = True$/;"	v
 VisibleMap	map_decode.py	/^from motionless import AddressMarker, LatLonMarker,DecoratedMap, CenterMap, VisibleMap$/;"	i
+__candidate	fs_gui_net.py	/^    def __candidate(self, src, dest, media, data):$/;"	m	class:FsUIClient	file:
+__candidate	fs_gui_net.py	/^    def __candidate(self, src, dest, media, data):$/;"	m	class:FsUIServer	file:
+__candidate_done	fs_gui_net.py	/^    def __candidate_done(self, src, dest, media, data):$/;"	m	class:FsUIClient	file:
+__candidate_done	fs_gui_net.py	/^    def __candidate_done(self, src, dest, media, data):$/;"	m	class:FsUIServer	file:
+__candidate_from_string	fs_gui_net.py	/^    def __candidate_from_string(self, string):$/;"	m	class:FsUIConnect	file:
+__candidate_to_string	fs_gui_net.py	/^    def __candidate_to_string(self, candidate):$/;"	m	class:FsUIConnect	file:
+__codecs	fs_gui_net.py	/^    def __codecs(self, src, dest, media, data):$/;"	m	class:FsUIClient	file:
+__codecs	fs_gui_net.py	/^    def __codecs(self, src, dest, media, data):$/;"	m	class:FsUIServer	file:
+__codecs_from_string	fs_gui_net.py	/^    def __codecs_from_string(self, string):$/;"	m	class:FsUIConnect	file:
+__codecs_to_string	fs_gui_net.py	/^    def __codecs_to_string(self, codecs):$/;"	m	class:FsUIConnect	file:
+__data_in	fs_gui_net.py	/^    def __data_in(self, source, condition):$/;"	m	class:FsUIConnect	file:
+__del__	fs-gui.py	/^    def __del__(self):$/;"	m	class:FsMainUI	file:
+__del__	fs-gui.py	/^    def __del__(self):$/;"	m	class:FsUIPipeline	file:
+__del__	fs-gui.py	/^    def __del__(self):$/;"	m	class:FsUISession	file:
+__del__	fs-gui.py	/^    def __del__(self):$/;"	m	class:FsUISource	file:
+__del__	fs_gui_net.py	/^    def __del__(self):$/;"	m	class:FsUIConnect	file:
+__error	fs_gui_net.py	/^    def __error(self, participantid, *arg):$/;"	m	class:FsUIClient	file:
+__error	fs_gui_net.py	/^    def __error(self, participantid, *args):$/;"	m	class:FsUIServer	file:
+__error	fs_gui_net.py	/^    def __error(self, source, condition):$/;"	m	class:FsUIConnect	file:
+__init__	fs-gui.py	/^    def __init__(self, conference, source):$/;"	m	class:FsUISession
+__init__	fs-gui.py	/^    def __init__(self, connect, id, pipeline, mainui):$/;"	m	class:FsUIParticipant
+__init__	fs-gui.py	/^    def __init__(self, elementname="fsrtpconference"):$/;"	m	class:FsUIPipeline
+__init__	fs-gui.py	/^    def __init__(self, id, session, participant, fsstream):$/;"	m	class:FsUIStream
+__init__	fs-gui.py	/^    def __init__(self, mode, ip, port):$/;"	m	class:FsMainUI
+__init__	fs-gui.py	/^    def __init__(self, mode, ip, port):$/;"	m	class:FsUIStartup
+__init__	fs-gui.py	/^    def __init__(self, pipeline):$/;"	m	class:FsUISource
+__init__	fs_gui_net.py	/^        def __init__(self, connect, id, *args):$/;"	m	class:.TestParticipant
+__init__	fs_gui_net.py	/^        def __init__(self, pid, id, connect):$/;"	m	class:.TestMedia
+__init__	fs_gui_net.py	/^    def __init__(self, ip, port, callbacks):$/;"	m	class:FsUIConnectClient
+__init__	fs_gui_net.py	/^    def __init__(self, ip, port, get_participant, *args):$/;"	m	class:FsUIClient
+__init__	fs_gui_net.py	/^    def __init__(self, port, callback, *args):$/;"	m	class:FsUIListener
+__init__	fs_gui_net.py	/^    def __init__(self, sock, callbacks, myid=0):$/;"	m	class:FsUIConnect
+__init__	fs_gui_net.py	/^    def __init__(self, sock, get_participant, *args):$/;"	m	class:FsUIServer
 __init__	map_decode.py	/^  def __init__(self):$/;"	m	class:MapThread
 __init__	master.py	/^  def __init__(self):$/;"	m	class:MasterThread
 __init__	network.py	/^  def __init__(self):$/;"	m	class:ConnectingThread
 __init__	network.py	/^  def __init__(self,client_socket):$/;"	m	class:Receiver
 __init__	network.py	/^  def __init__(self,sock):$/;"	m	class:ListeningThread
+__intro	fs_gui_net.py	/^    def __intro(self, src, dest, media, data):$/;"	m	class:FsUIClient	file:
+__intro	fs_gui_net.py	/^    def __intro(self, src, dest, media, data):$/;"	m	class:FsUIServer	file:
+__remove_from_send_codecs_to	fs-gui.py	/^    def __remove_from_send_codecs_to(self, participant):$/;"	m	class:FsUIStream	file:
+__reset	fs_gui_net.py	/^    def __reset(self):$/;"	m	class:FsUIConnect	file:
+__send_data	fs_gui_net.py	/^    def __send_data(self, dest, type, media=0, data="", src=None):$/;"	m	class:FsUIConnect	file:
+__src_pad_added	fs-gui.py	/^    def __src_pad_added(self, stream, pad, codec):$/;"	m	class:FsUIStream	file:
+__stream_finalized	fs-gui.py	/^    def __stream_finalized(self, s):$/;"	m	class:FsUISession	file:
+action	fs-gui.py	/^    def action(self, mode, ip, port):$/;"	m	class:FsUIStartup
 api	gui.py	/^import api$/;"	i
 api	main.py	/^import api$/;"	i
 api	map_decode.py	/^import api$/;"	i
 api	master.py	/^import api$/;"	i
 api	messages.py	/^import api$/;"	i
 append_chat_msg	gui.py	/^def append_chat_msg(msgtime, sender, msg):$/;"	f
+async_handler	fs-gui.py	/^    def async_handler(self, bus, message):$/;"	m	class:FsUIPipeline
+audio_combobox_changed_cb	fs-gui.py	/^    def audio_combobox_changed_cb(self, combobox):$/;"	m	class:FsMainUI
+builderprefix	fs-gui.py	/^builderprefix = os.path.join(os.path.dirname(__file__),"fs-gui-")$/;"	v
 button1_clicked	gui.py	/^def button1_clicked(widget):$/;"	f
+camera	instance.py	/^camera = 'None'$/;"	v
+candidate	fs-gui.py	/^    def candidate(self, candidate):$/;"	m	class:FsUIStream
+candidate	fs-gui.py	/^    def candidate(self, media, candidate):$/;"	m	class:FsUIParticipant
+candidate	fs_gui_net.py	/^        def candidate(self, candidate):$/;"	m	class:.TestMedia
+candidate	fs_gui_net.py	/^        def candidate(self, media, candidate):$/;"	m	class:.TestParticipant
+candidates_done	fs-gui.py	/^    def candidates_done(self):$/;"	m	class:FsUIStream
+candidates_done	fs-gui.py	/^    def candidates_done(self, media):$/;"	m	class:FsUIParticipant
+candidates_done	fs_gui_net.py	/^        def candidates_done(self):$/;"	m	class:.TestMedia
+candidates_done	fs_gui_net.py	/^        def candidates_done(self, media):$/;"	m	class:.TestParticipant
+change_master_label	gui.py	/^def change_master_label():$/;"	f
 chat_msgs	instance.py	/^chat_msgs = "chat"$/;"	v
 chattextview	gui.py	/^chattextview = None$/;"	v
+check_send_local_codecs	fs-gui.py	/^    def check_send_local_codecs(self):$/;"	m	class:FsUIStream
+child_pid	instance.py	/^child_pid = 0$/;"	v
 clear_master	master.py	/^def clear_master():$/;"	f
+client	fs_gui_net.py	/^        client = FsUIClient("127.0.0.1", int(sys.argv[1]),$/;"	v	class:.TestParticipant
 close_connections	network.py	/^def close_connections():$/;"	f
+codecs	fs-gui.py	/^    def codecs(self, codecs):$/;"	m	class:FsUIStream
+codecs	fs-gui.py	/^    def codecs(self, media, codecs):$/;"	m	class:FsUIParticipant
+codecs	fs_gui_net.py	/^        def codecs(self, codecs):$/;"	m	class:.TestMedia
+codecs	fs_gui_net.py	/^        def codecs(self, media, codecs):$/;"	m	class:.TestParticipant
 codecs	map_decode.py	/^import codecs$/;"	i
+codecs_changed	fs-gui.py	/^    def codecs_changed(self):$/;"	m	class:FsUISession
+codecs_changed	fs-gui.py	/^    def codecs_changed(self):$/;"	m	class:FsUIStream
+combobox_changed_cb	fs-gui.py	/^    def combobox_changed_cb(self, combobox, fssession):$/;"	m	class:FsMainUI
 config	api.py	/^import config$/;"	i
 config	gui.py	/^import config$/;"	i
 config	main.py	/^import config$/;"	i
 config	master.py	/^import config$/;"	i
 config	messages.py	/^import config$/;"	i
-connect_to_video_server	api.py	/^def connect_to_video_server(name, ip, port):$/;"	f
+connect	fs-gui.py	/^    def connect(self, widget):$/;"	m	class:FsUIStartup
 connection_list	network.py	/^connection_list = dict()$/;"	v
+create_client	video.py	/^def create_client():$/;"	f
+create_server	video.py	/^def create_server():$/;"	f
 curr_master	instance.py	/^curr_master = ''$/;"	v
 curr_video_ip	instance.py	/^curr_video_ip = '0.0.0.0'$/;"	v
 curr_video_name	instance.py	/^curr_video_name = 'none'$/;"	v
 curr_video_port	instance.py	/^curr_video_port = 0$/;"	v
+data_in	fs_gui_net.py	/^    def data_in(self, source, condition):$/;"	m	class:FsUIListener
+destroy	fs-gui.py	/^    def destroy(self):$/;"	m	class:FsUIParticipant
+destroy	fs_gui_net.py	/^        def destroy(self):$/;"	m	class:.TestParticipant
 destroy	gui.py	/^def destroy(self, widget):$/;"	f
-disconnect_video_server	api.py	/^def disconnect_video_server():$/;"	f
+element_added_cb	fs-gui.py	/^    def element_added_cb(self, notifier, bin, element):$/;"	m	class:FsUIPipeline
+error	fs-gui.py	/^    def error(self):$/;"	m	class:FsUIParticipant
+error	fs_gui_net.py	/^        def error(self):$/;"	m	class:.TestParticipant
+error	fs_gui_net.py	/^    def error(self, source, condition):$/;"	m	class:FsUIListener
+exposed	fs-gui.py	/^    def exposed(self, widget, *args):$/;"	m	class:FsMainUI
+exposed	fs-gui.py	/^    def exposed(self, widget, *args):$/;"	m	class:FsUIParticipant
+farstream	fs-gui.py	/^        import farstream$/;"	i
+farstream	fs-gui.py	/^    import farstream$/;"	i
+farstream	fs_gui_net.py	/^    import farstream$/;"	i
+fatal_error	fs-gui.py	/^    def fatal_error(self, errormsg):$/;"	m	class:FsMainUI
+gc	fs_gui_net.py	/^import gc$/;"	i
+gdk	fs-gui.py	/^    import gtk, gobject, gtk.gdk$/;"	i
 gen_heartbeat_str	master.py	/^def gen_heartbeat_str():$/;"	f
 gen_map	map_decode.py	/^def gen_map():$/;"	f
 generate_map_and_desc	map_decode.py	/^def generate_map_and_desc(gps_data, marker_list):$/;"	f
+get_codecs	fs_gui_net.py	/^        def get_codecs(self):$/;"	m	class:.TestMedia
 get_connection_list	network.py	/^def get_connection_list():$/;"	f
 get_node_index	config.py	/^def get_node_index(name):$/;"	f
+get_src_pad	fs-gui.py	/^    def get_src_pad(self, name="src%d"):$/;"	m	class:FsUISource
+get_type	fs-gui.py	/^    def get_type(self):$/;"	m	class:FsUIAudioSource
+get_type	fs-gui.py	/^    def get_type(self):$/;"	m	class:FsUISource
+get_type	fs-gui.py	/^    def get_type(self):$/;"	m	class:FsUIVideoSource
 glade	gui.py	/^  import gtk.glade$/;"	i
 gmutex	instance.py	/^gmutex = threading.Lock()$/;"	v
+gobject	fs-gui.py	/^    import gobject$/;"	i
+gobject	fs-gui.py	/^    import gtk, gobject, gtk.gdk$/;"	i
+gobject	fs_gui_net.py	/^import gobject$/;"	i
 gobject	main.py	/^import gobject, gtk$/;"	i
+gst	fs-gui.py	/^    import gst$/;"	i
+gst	fs_gui_net.py	/^    import gst$/;"	i
+gtk	fs-gui.py	/^    import gtk, gobject, gtk.gdk$/;"	i
 gtk	gui.py	/^  import gtk$/;"	i
 gtk	gui.py	/^  import gtk.glade$/;"	i
 gtk	main.py	/^import gobject, gtk$/;"	i
 gtk_init_ui	gui.py	/^def gtk_init_ui():$/;"	f
 gui	api.py	/^import gui$/;"	i
 gui	map_decode.py	/^import gui$/;"	i
+gui	master.py	/^import gui$/;"	i
 gui	network.py	/^import gui$/;"	i
 gui_inited	instance.py	/^gui_inited = False$/;"	v
 handle_heartbeat	messages.py	/^def handle_heartbeat(strs):$/;"	f
@@ -75,13 +199,13 @@ handle_heartbeatreply	master.py	/^def handle_heartbeatreply(strs):$/;"	f
 handle_join	master.py	/^def handle_join(strs, sock):$/;"	f
 handle_message	master.py	/^def handle_message(data, sock):$/;"	f
 handle_message	messages.py	/^def handle_message(data):$/;"	f
-handle_videoreq	master.py	/^def handle_videoreq(strs):$/;"	f
-handle_videostop	master.py	/^def handle_videostop(strs):$/;"	f
 has_exited	instance.py	/^has_exited = False$/;"	v
+have_size	fs-gui.py	/^    def have_size(self, pad, buffer):$/;"	m	class:FsUIParticipant
+have_size	fs-gui.py	/^    def have_size(self, pad, buffer, callback):$/;"	m	class:FsUIPipeline
+hbox_add	fs-gui.py	/^    def hbox_add(self, widget, label):$/;"	m	class:FsMainUI
 heartbeat_time	instance.py	/^heartbeat_time = dict()$/;"	v
 init_gui	api.py	/^def init_gui():$/;"	f
 init_master	master.py	/^def init_master():$/;"	f
-init_video_module	api.py	/^def init_video_module():$/;"	f
 initialized	instance.py	/^initialized = False$/;"	v
 input_text	gui.py	/^input_text = None$/;"	v
 instance	api.py	/^import instance$/;"	i
@@ -92,13 +216,26 @@ instance	map_decode.py	/^import instance$/;"	i
 instance	master.py	/^import instance$/;"	i
 instance	messages.py	/^import instance$/;"	i
 instance	network.py	/^import instance$/;"	i
+instance	video.py	/^import instance$/;"	i
+int_handler	fs-gui.py	/^    def int_handler(self, sig, frame):$/;"	m	class:FsUIPipeline
 is_master	instance.py	/^is_master = False$/;"	v
 join_meeting	network.py	/^def join_meeting():$/;"	f
 last_heartbeat_rcvd	instance.py	/^last_heartbeat_rcvd = 0$/;"	v
+link_audio_sink	fs-gui.py	/^    def link_audio_sink(self, pad):$/;"	m	class:FsUIPipeline
+link_video_sink	fs-gui.py	/^    def link_video_sink(self, pad):$/;"	m	class:FsUIParticipant
 listen_port	instance.py	/^listen_port = 0$/;"	v
+listener	fs_gui_net.py	/^        listener = FsUIListener(9893, FsUIServer, TestParticipant)$/;"	v	class:.TestParticipant
+local_candidates_prepared	fs-gui.py	/^    def local_candidates_prepared(self):$/;"	m	class:FsUIStream
 local_ip	instance.py	/^local_ip = ''$/;"	v
 log_text_msg	api.py	/^def log_text_msg(sender, text):$/;"	f
 main	main.py	/^def main():  $/;"	f
+mainloop	fs_gui_net.py	/^    mainloop = gobject.MainLoop()$/;"	v
+make_source	fs-gui.py	/^    def make_source(self):$/;"	m	class:FsUIAudioSource
+make_source	fs-gui.py	/^    def make_source(self):$/;"	m	class:FsUISource
+make_source	fs-gui.py	/^    def make_source(self):$/;"	m	class:FsUIVideoSource
+make_video_preview	fs-gui.py	/^    def make_video_preview(self, xid, newsize_callback):$/;"	m	class:FsUIPipeline
+make_video_sink	fs-gui.py	/^def make_video_sink(pipeline, xid, name, async=True):$/;"	f
+make_widget	fs-gui.py	/^    def make_widget(self):$/;"	m	class:FsUIParticipant
 map_decode	main.py	/^import map_decode$/;"	i
 map_loc	instance.py	/^map_loc = "map"$/;"	v
 master	api.py	/^import master$/;"	i
@@ -108,6 +245,8 @@ master	network.py	/^import master$/;"	i
 master_thread	instance.py	/^master_thread = None$/;"	v
 meeting_id	instance.py	/^meeting_id = 123$/;"	v
 messages	network.py	/^import messages$/;"	i
+mode	fs-gui.py	/^			mode = CLIENT$/;"	v	class:FsUIStartup
+mode	fs-gui.py	/^			mode = SERVER$/;"	v	class:FsUIStartup
 name	instance.py	/^name = ''$/;"	v
 namedtuple	config.py	/^from collections import namedtuple$/;"	i
 network	api.py	/^import network$/;"	i
@@ -115,37 +254,89 @@ network	gui.py	/^import network$/;"	i
 network	main.py	/^import network$/;"	i
 network	master.py	/^import network$/;"	i
 network	messages.py	/^import network$/;"	i
+new_local_candidate	fs-gui.py	/^    def new_local_candidate(self, candidate):$/;"	m	class:FsUIStream
+new_server	fs-gui.py	/^    def new_server(self, widget):$/;"	m	class:FsUIStartup
+new_stream	fs-gui.py	/^    def new_stream(self, id, participant):$/;"	m	class:FsUISession
+newsize	fs-gui.py	/^    def newsize (self, x, y):$/;"	m	class:FsMainUI
+nextid	fs_gui_net.py	/^    nextid = 2$/;"	v	class:FsUIServer
 nodes	instance.py	/^nodes = []$/;"	v
 on_entry1_key_press_event	gui.py	/^def on_entry1_key_press_event(widg, event):$/;"	f
+os	fs-gui.py	/^import sys, os, pwd, os.path, time$/;"	i
+os	fs_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+os	network.py	/^import os$/;"	i
+os	video.py	/^import os$/;"	i
 parse	config.py	/^def parse():$/;"	f
+participants	fs_gui_net.py	/^    participants = {}$/;"	v	class:FsUIServer
+password	instance.py	/^password = ''$/;"	v
+path	fs-gui.py	/^import sys, os, pwd, os.path, time$/;"	i
+path	fs_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+put_src_pad	fs-gui.py	/^    def put_src_pad(self, pad):$/;"	m	class:FsUISource
+pwd	fs-gui.py	/^import sys, os, pwd, os.path, time$/;"	i
+pwd	fs_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
+pygst	fs-gui.py	/^    import pygst$/;"	i
+pygst	fs_gui_net.py	/^    import pygst$/;"	i
+pygtk	fs-gui.py	/^    import pygtk$/;"	i
 pygtk	gui.py	/^  import pygtk$/;"	i
+quit	fs-gui.py	/^    def quit(self, widget):$/;"	m	class:FsUIStartup
 received_text_msg	api.py	/^def received_text_msg(sender, text):$/;"	f
+recv_codecs_changed	fs-gui.py	/^    def recv_codecs_changed(self):$/;"	m	class:FsUIParticipant
+recv_codecs_changed	fs-gui.py	/^    def recv_codecs_changed(self, codecs):$/;"	m	class:FsUIStream
 remove_peer	network.py	/^def remove_peer(name):$/;"	f
+reset_audio_codecs	fs-gui.py	/^    def reset_audio_codecs(self):$/;"	m	class:FsMainUI
+reset_codecs	fs-gui.py	/^    def reset_codecs(self, combobox, fssession):$/;"	m	class:FsMainUI
+reset_video_codecs	fs-gui.py	/^    def reset_video_codecs(self):$/;"	m	class:FsMainUI
 run	map_decode.py	/^  def run(self):$/;"	m	class:MapThread
 run	master.py	/^  def run(self):$/;"	m	class:MasterThread
 run	network.py	/^  def run(self):$/;"	m	class:ConnectingThread
 run	network.py	/^  def run(self):$/;"	m	class:ListeningThread
 run	network.py	/^  def run(self):$/;"	m	class:Receiver
 send	network.py	/^def send(dst, data):$/;"	f
+send_candidate	fs_gui_net.py	/^    def send_candidate(self, dest, media, candidate, src=None):$/;"	m	class:FsUIConnect
+send_candidates_done	fs_gui_net.py	/^    def send_candidates_done(self, dest, media, src=None):$/;"	m	class:FsUIConnect
+send_codecs	fs_gui_net.py	/^    def send_codecs(self, dest, media, codecs, src=None):$/;"	m	class:FsUIConnect
+send_codecs_to	fs-gui.py	/^    def send_codecs_to(self, participant):$/;"	m	class:FsUIParticipant
+send_codecs_to	fs-gui.py	/^    def send_codecs_to(self, participant):$/;"	m	class:FsUIStream
+send_codecs_to	fs_gui_net.py	/^        def send_codecs_to(self, participant):$/;"	m	class:.TestParticipant
+send_error	fs_gui_net.py	/^    def send_error(self, dest, src):$/;"	m	class:FsUIConnect
 send_heartbeats	master.py	/^def send_heartbeats():$/;"	f
+send_intro	fs_gui_net.py	/^    def send_intro(self, dest, src=None):$/;"	m	class:FsUIConnect
+send_local_codecs	fs-gui.py	/^    def send_local_codecs(self):$/;"	m	class:FsUIParticipant
+send_local_codecs	fs-gui.py	/^    def send_local_codecs(self):$/;"	m	class:FsUIStream
+send_local_codecs	fs_gui_net.py	/^        def send_local_codecs(self):$/;"	m	class:.TestMedia
+send_local_codecs	fs_gui_net.py	/^        def send_local_codecs(self):$/;"	m	class:.TestParticipant
 send_message	gui.py	/^def send_message(message = None):$/;"	f
+send_stream_codecs	fs-gui.py	/^    def send_stream_codecs(self):$/;"	m	class:FsUIStream
+send_stream_codecs	fs-gui.py	/^    def send_stream_codecs(self, codecs, sourcestream):$/;"	m	class:FsUISession
 send_text_msg	api.py	/^def send_text_msg(text):$/;"	f
-send_video_req	api.py	/^def send_video_req():$/;"	f
-send_video_stop_req	api.py	/^def send_video_stop_req():$/;"	f
+shutdown	fs-gui.py	/^    def shutdown(self, widget=None):$/;"	m	class:FsMainUI
+signal	fs-gui.py	/^import signal$/;"	i
+signal	video.py	/^import signal$/;"	i
+socket	fs-gui.py	/^import socket$/;"	i
+socket	fs_gui_net.py	/^import socket, struct$/;"	i
 socket	main.py	/^import socket$/;"	i
 socket	network.py	/^import socket$/;"	i
-start_video_stream	api.py	/^def start_video_stream():$/;"	f
-stop_video_stream	api.py	/^def stop_video_stream():$/;"	f
+stop_client	video.py	/^def stop_client():$/;"	f
+stop_server	video.py	/^def stop_server():$/;"	f
+struct	fs_gui_net.py	/^import socket, struct$/;"	i
+sync_handler	fs-gui.py	/^    def sync_handler(self, bus, message):$/;"	m	class:FsUIPipeline
+sys	fs-gui.py	/^import sys, os, pwd, os.path, time$/;"	i
+sys	fs_gui_net.py	/^import sys, os, pwd, os.path$/;"	i
 sys	main.py	/^import sys$/;"	i
 sys	master.py	/^import sys$/;"	i
 sys	messages.py	/^import sys$/;"	i
 sys	network.py	/^import sys$/;"	i
+sys	video.py	/^import sys$/;"	i
+threading	fs-gui.py	/^import threading$/;"	i
 threading	gui.py	/^import threading$/;"	i
 threading	instance.py	/^import threading$/;"	i
 threading	map_decode.py	/^import threading$/;"	i
 threading	master.py	/^import threading$/;"	i
 threading	network.py	/^import threading$/;"	i
 time	api.py	/^import time$/;"	i
+time	chld_client.py	/^import time$/;"	i
+time	chld_server.py	/^import time$/;"	i
+time	fs-gui.py	/^import sys, os, pwd, os.path, time$/;"	i
+time	fs-gui.py	/^import time$/;"	i
 time	main.py	/^import time$/;"	i
 time	map_decode.py	/^import time$/;"	i
 time	master.py	/^import time$/;"	i
@@ -158,5 +349,10 @@ update_video_source	api.py	/^def update_video_source(name, ip, port):$/;"	f
 urllib	map_decode.py	/^import urllib$/;"	i
 urllib2	master.py	/^import urllib2$/;"	i
 urllib2	network.py	/^import urllib2$/;"	i
+video	api.py	/^import video$/;"	i
+video	main.py	/^import video$/;"	i
+video	master.py	/^import video$/;"	i
+video_combobox_changed_cb	fs-gui.py	/^    def video_combobox_changed_cb(self, combobox):$/;"	m	class:FsMainUI
 video_port	instance.py	/^video_port = 12344$/;"	v
 wTree	gui.py	/^wTree = None$/;"	v
+weakref	fs-gui.py	/^import weakref$/;"	i

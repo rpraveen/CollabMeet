@@ -344,10 +344,10 @@ class FsUISession:
             # We know H264 doesn't work for now or anything else
             # that needs to send config data
             self.fssession.set_codec_preferences( [ \
-                farstream.Codec(farstream.CODEC_ID_ANY,
-                               "THEORA",
-                               farstream.MEDIA_TYPE_VIDEO,
-                               90000),
+#                farstream.Codec(farstream.CODEC_ID_ANY,
+#                               "THEORA",
+#                               farstream.MEDIA_TYPE_VIDEO,
+#                               90000),
                 farstream.Codec(farstream.CODEC_ID_ANY,
                                "H264",
                                farstream.MEDIA_TYPE_VIDEO,
@@ -581,7 +581,6 @@ class FsUIParticipant:
         self.builder = gtk.Builder()
         self.builder.add_from_file(builderprefix + "user-frame.ui")
         self.userframe = self.builder.get_object("user_frame")
-        #self.builder.get_object("frame_label").set_text(self.cname)
         self.builder.connect_signals(self)
         self.label = gtk.Label()
         self.label.set_alignment(0,0)
@@ -640,6 +639,7 @@ class FsUIParticipant:
             self.outcv.acquire()
             while self.funnel is None:
                 self.outcv.wait()
+            time.sleep(5)
             print >>sys.stderr, "LINKING VIDEO SINK"
             pad.link(self.funnel.get_pad("sink%d"))
         finally:
@@ -890,7 +890,6 @@ if __name__ == "__main__":
 		else:
 			CAMERA = None
 	elif mode == 'c':
-		time.sleep(6)
 		ip = sys.argv[2]
 		port = int(sys.argv[3])
 		if len(sys.argv) >= 5 and sys.argv[4] != 'None':
