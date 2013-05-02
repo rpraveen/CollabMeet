@@ -89,6 +89,7 @@ def init_master():
 def clear_master():
   print "Clearing master..."
   instance.is_master = False
+  gui.remove_master_label()
   instance.last_heartbeat_rcvd = time.time()
   video.stop_server()
   video.create_client()

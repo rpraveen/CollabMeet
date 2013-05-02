@@ -86,6 +86,15 @@ def change_master_label():
   l2 = wTree.get_object("eventbox1")
   l2.modify_bg(gtk.STATE_NORMAL, color)
 
+	
+def remove_master_label():
+  if instance.gui_inited == False:
+    return
+  global wTree
+  color = gtk.gdk.Color(30000, 30000, 30000, 255)  #'#234fdb')
+  l2 = wTree.get_object("eventbox1")
+  l2.modify_bg(gtk.STATE_NORMAL, color)
+
 
 def gtk_init_ui():
   gladefile="p12.glade"
@@ -117,6 +126,8 @@ def gtk_init_ui():
 
   if instance.is_master:
     change_master_label()
+  else:
+    remove_master_label()
 
   update_image("google_maps.jpg")
 
