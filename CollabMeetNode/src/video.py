@@ -4,6 +4,8 @@ import sys
 import signal
 
 def create_server():
+	if instance.VIDEO_ENABLED == False:
+		return
 	instance.child_pid = os.fork()
 	if instance.child_pid == 0:
 		print "Creating video server.."
@@ -17,6 +19,8 @@ def stop_server():
 		os.kill(instance.child_pid, signal.SIGKILL)
 
 def create_client():
+	if instance.VIDEO_ENABLED == False:
+		return
 	instance.child_pid = os.fork()
 	if instance.child_pid == 0:
 		print "Creating video client.."

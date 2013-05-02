@@ -6,6 +6,7 @@ local_ip = ''
 listen_port = 0
 meeting_id = 123
 video_port = 12344
+password = ''
 
 is_master = False
 curr_master = ''
@@ -39,3 +40,5 @@ MODULE = 1
 MSGTYPE = 2
 
 NODECOUNT = 3
+
+VIDEO_ENABLED = True

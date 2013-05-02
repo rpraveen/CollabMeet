@@ -154,7 +154,7 @@ def join_meeting():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((strs[1], int(strs[2])))  #blocking (with only 1 thread)
     connection_list[strs[0]] = sock
-    send(strs[0], "master:join:" + "password" + ":" + instance.local_ip + ":" + str(instance.listen_port))
+    send(strs[0], "master:join:" + instance.password + ":" + instance.local_ip + ":" + str(instance.listen_port))
     data = sock.recv(4096)
     messages.handle_message(data)
   except:
