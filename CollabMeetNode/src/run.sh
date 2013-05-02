@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python main.py $1 128.237.231.94 $2 $3 123 password $4
+python main.py $1 128.237.225.109 $2 $3 123 password $4
