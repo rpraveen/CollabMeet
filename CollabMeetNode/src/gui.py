@@ -82,8 +82,9 @@ def change_master_label():
   if instance.gui_inited == False:
     return
   global wTree
-  l2 = wTree.get_object("label2")
-  l2.modify_fg(gtk.STATE_NORMAL, color)
+  color = gtk.gdk.color_parse("green")  #'#234fdb')
+  l2 = wTree.get_object("eventbox1")
+  l2.modify_bg(gtk.STATE_NORMAL, color)
 
 
 def gtk_init_ui():
@@ -105,11 +106,7 @@ def gtk_init_ui():
   global chattextview
   chattextview = wTree.get_object("chattextview")
 
-  mi = wTree.get_object("meetinginfo")
-  color = gtk.gdk.color_parse("blue")  #'#234fdb')
-  mi.modify_bg(gtk.STATE_NORMAL, color)
-  l2 = wTree.get_object("label2")
-  l2.modify_base(gtk.STATE_NORMAL, color)
+  
 
   #calendar = gtk.Calendar()
 
@@ -117,6 +114,9 @@ def gtk_init_ui():
   instance.gui_inited = True
   update_meeting_info()
   instance.gmutex.release()
+
+  if instance.is_master:
+    change_master_label()
 
   update_image("google_maps.jpg")
 
