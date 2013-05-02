@@ -4,6 +4,7 @@ import sys, os, pwd, os.path, time
 import socket
 import threading
 import weakref
+import time
 
 import signal
 
@@ -36,8 +37,6 @@ except:
 
 
 from fs_gui_net import  FsUIClient, FsUIListener, FsUIServer
-
-print "Created!!!"
 
 CAMERA=True
 
@@ -891,6 +890,7 @@ if __name__ == "__main__":
 		else:
 			CAMERA = None
 	elif mode == 'c':
+        time.sleep(10)
 		ip = sys.argv[2]
 		port = int(sys.argv[3])
 		if len(sys.argv) >= 5:
