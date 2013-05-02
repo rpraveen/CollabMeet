@@ -9,8 +9,6 @@ import api
 def handle_heartbeat(strs):
   print "Received heartbeat.."
   instance.last_heartbeat_rcvd = time.time()
-  if instance.is_master and instance.name != strs[instance.SENDER]:
-    master.clear_master()
   instance.curr_master = strs[instance.SENDER]
   instance.nodes = []
   nodecount = int(strs[instance.NODECOUNT])
@@ -33,6 +31,8 @@ def handle_heartbeat(strs):
   for i in range(8 + nodecount, len(strs)):
     instance.chat_msgs += ":" + strs[i]
   api.update_video_source(video_name, video_ip, video_port)
+  if instance.is_master and instance.name != strs[instance.SENDER]:
+    master.clear_master()
   
     
 def handle_message(data):

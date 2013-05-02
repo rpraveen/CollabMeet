@@ -9,6 +9,7 @@ import time
 import api
 import gobject, gtk
 import map_decode
+import video
 
 gtk.gdk.threads_init()
 
@@ -40,16 +41,14 @@ def main():
   instance.last_heartbeat_rcvd = time.time()
   instance.master_thread = master.MasterThread()
   
-  if instance.curr_video_port != 0:
-    api.connect_to_video_server(instance.curr_video_name, instance.curr_video_ip, instance.curr_video_port)
-  
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   network.ListeningThread(s)
   network.ConnectingThread()
   map_decode.MapThread()
 
   api.init_gui()
-  
+  sys.exit(0)
+
   while 1:
     try:
       command = raw_input()

@@ -6,6 +6,7 @@ import network
 import urllib2
 import config
 import api
+import video
 
 class MasterThread(threading.Thread):
   def __init__(self):
@@ -54,7 +55,6 @@ def send_heartbeats():
     else:
       network.send(peer, data)
   #print "Heartbeat reply times:", instance.heartbeat_time
-  api.update_video_source(instance.curr_video_name, instance.curr_video_ip, instance.curr_video_port)
 
 
 def init_master():
@@ -74,6 +74,12 @@ def init_master():
   except:
     print "Error! Cannot connect to bootstrap server!"
     sys.exit(1)
+  if instance.child_pid != 0:
+    video.stop_client()
+  instance.curr_video_name = instance.name
+  instance.curr_video_ip = instance.local_ip
+  instance.curr_video_port = instance.video_port  
+  video.create_server()
   instance.gmutex.acquire()
   send_heartbeats()
   instance.gmutex.release()
@@ -81,7 +87,9 @@ def init_master():
 def clear_master():
   print "Clearing master..."
   instance.is_master = False
-  instance.last_heartbeat_rcvd = time.time() 
+  instance.last_heartbeat_rcvd = time.time()
+  video.stop_server()
+  video.create_client()
    
 # Master Message Handling
 
@@ -109,21 +117,6 @@ def handle_join(strs, sock):
 
 def handle_heartbeatreply(strs):
   instance.heartbeat_time[strs[instance.SENDER]] = time.time()
-
- 
-def handle_videoreq(strs):
-  if instance.curr_video_name != strs[instance.SENDER]:
-    #TODO: handle waiting lists
-    return
-  instance.curr_video_name = strs[instance.SENDER]
-  instance.curr_video_ip = strs[3]
-  instance.curr_video_port = int(strs[4])
-
-
-def handle_videostop(strs):
-  instance.curr_video_name = 'none'
-  instance.curr_video_ip = '0.0.0.0'
-  instance.curr_video_port = 0
  
  
 def handle_message(data, sock):
@@ -135,9 +128,5 @@ def handle_message(data, sock):
     handle_join(strs, sock)
   elif strs[instance.MSGTYPE] == 'heartbeatreply':  
     handle_heartbeatreply(strs)
-  elif strs[instance.MSGTYPE] == 'videoreq':
-    handle_videoreq(strs)
-  elif strs[instance.MSGTYPE] == 'videostop':
-    handle_videostop(strs)
   else:
     print 'Error! Invalid message to master'

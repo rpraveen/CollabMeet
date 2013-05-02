@@ -21,6 +21,8 @@ curr_video_port = 0
 initialized = False
 gui_inited = False
 
+child_pid = 0
+
 chat_msgs = "chat"
 
 map_loc = "map"
