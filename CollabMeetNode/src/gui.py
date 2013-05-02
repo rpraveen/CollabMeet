@@ -17,14 +17,10 @@ import threading
 import network
 import instance
 import config
-import gobject
-import fs_gui
 
 input_text = None
 chattextview = None
 wTree = None
-gladefile = "p11.glade"
-wname = "markui"
 
 def append_chat_msg(msgtime, sender, msg):
   if instance.gui_inited == False:
@@ -81,28 +77,23 @@ def update_meeting_info():
     msg += chr(65 + config.get_node_index(node.name)) + ") " + node.name + "\n" 
   buf.set_text(msg)
 
-
-def gtk_init_ui(mode, local_ip, video_port, camera):
+def gtk_init_ui():
+  gladefile="p11.glade"
+#  wname="markui"
   global wTree
-  
-  gobject.threads_init()
-  gtk.gdk.threads_init()
-  startup = fs_gui.FsUIStartup(gladefile, wname, mode, local_ip, video_port, camera)
-
-  wTree = startup.ui.builder
+#  wTree=gtk.glade.XML(gladefile,wname)
+  wTree = gtk.Builder()
+  wTree.add_from_file(gladefile)
   dic={"on_button1_clicked": button1_clicked, 
-     "on_markui_destroy": gtk.main_quit,
-     "on_entry1_key_press_event": on_entry1_key_press_event,
-     "destroy":destroy,
-     "video_combobox_changed_cb" : startup.ui.reset_video_codecs,
-     "audio_combobox_changed_cb" : startup.ui.reset_audio_codecs,
-     "exposed" : startup.ui.exposed,
-     "shutdown"	 :  startup.ui.shutdown#gtk.main_quit,
-  }
+       "on_markui_destroy": gtk.main_quit,
+       "on_entry1_key_press_event": on_entry1_key_press_event,
+       "destroy":destroy, }
+#  wTree.signal_autoconnect(dic)
   wTree.connect_signals(dic)
+  window = wTree.get_object("markui")
   global input_text
-  global chattextview
   input_text = wTree.get_object("entry1")
+  global chattextview
   chattextview = wTree.get_object("chattextview");
 
   instance.gmutex.acquire()
@@ -116,7 +107,6 @@ def gtk_init_ui(mode, local_ip, video_port, camera):
   for i in range(1, len(strs)):
     chat = strs[i].split("#")
     append_chat_msg(chat[0], chat[1], chat[2])
-  
-#  window.show()
-  startup.ui.mainwindow.show()
+
+  window.show()
   gtk.main()
