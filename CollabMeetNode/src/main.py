@@ -19,8 +19,8 @@ gtk.gdk.threads_init()
 ############
 
 def main():  
-  if len(sys.argv) != 7: 
-    print '<usage> $ %s node_name ip port videoport meetingid' % sys.argv[0]
+  if len(sys.argv) != 8: 
+    print '<usage> $ %s node_name ip port videoport meetingid password camera' % sys.argv[0]
     sys.exit(1)
   
   instance.name = sys.argv[1]
@@ -29,6 +29,7 @@ def main():
   instance.video_port = int(sys.argv[4])
   instance.meeting_id = int(sys.argv[5])
   instance.password = sys.argv[6]
+  instance.camera = sys.argv[7]
   
   config.parse()
   

@@ -10,8 +10,7 @@ def create_server():
 	if instance.child_pid == 0:
 		print "Creating video server.."
 		print instance.curr_video_name + ":" + instance.curr_video_ip + ":" + str(instance.curr_video_port)
-  		#os.execl("/usr/bin/python", "/usr/bin/python", "fs-gui.py", "s", str(instance.curr_video_port))
-  		os.execl("/usr/bin/python", "/usr/bin/python", "fs-gui.py", "s", str(instance.curr_video_port))
+  		os.execl("/usr/bin/python", "/usr/bin/python", "fs-gui.py", "s", str(instance.curr_video_port). instance.camera)
   		sys.exit(1)
 
 def stop_server():
@@ -25,7 +24,7 @@ def create_client():
 	if instance.child_pid == 0:
 		print "Creating video client.."
 		print instance.curr_video_name + ":" + instance.curr_video_ip + ":" + str(instance.curr_video_port)
-  		os.execl("/usr/bin/python", "/usr/bin/python", "fs-gui.py", "c", instance.curr_video_ip, str(instance.curr_video_port))
+  		os.execl("/usr/bin/python", "/usr/bin/python", "fs-gui.py", "c", instance.curr_video_ip, str(instance.curr_video_port), instance.camera)
   		sys.exit(1)
 
 def stop_client():

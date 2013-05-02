@@ -7,6 +7,7 @@ listen_port = 0
 meeting_id = 123
 video_port = 12344
 password = ''
+camera = 'None'
 
 is_master = False
 curr_master = ''
@@ -41,4 +42,4 @@ MSGTYPE = 2
 
 NODECOUNT = 3
 
-VIDEO_ENABLED = False
+VIDEO_ENABLED = True
