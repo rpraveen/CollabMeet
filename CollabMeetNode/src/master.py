@@ -74,6 +74,7 @@ def init_master():
   except:
     print "Error! Cannot connect to bootstrap server!"
     sys.exit(1)
+  api.highlight_master()
   if instance.child_pid != 0:
     video.stop_client()
   instance.curr_video_name = instance.name

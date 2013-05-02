@@ -17,6 +17,7 @@ import instance
 import master
 import messages
 import urllib2
+import os
 import gui
 
 connection_list = dict()
@@ -53,8 +54,12 @@ class ListeningThread(threading.Thread):
     self.start()
     
   def run(self):
-    self.sock.bind(('0.0.0.0', instance.listen_port))
-    self.sock.listen(5) #blocking
+    try:
+      self.sock.bind(('0.0.0.0', instance.listen_port))
+      self.sock.listen(5) #blocking
+    except:
+      print "Error! Cannot bind to address! Retry with different port!"
+      os._exit(1)
 
     while not instance.has_exited:
       try:

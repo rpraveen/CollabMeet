@@ -31,10 +31,10 @@ def generate_map_and_desc(gps_data, marker_list):
     return destination
 
 def gen_map():
-    instance.gmutex.acquire()
-    api.update_map_loc('alice', '40.442885', '-79.94263')
-    api.update_map_loc('bob', '40.444885', '-79.94463')
-    instance.gmutex.release()
+    #instance.gmutex.acquire()
+    #api.update_map_loc('alice', '40.442885', '-79.94263')
+    #api.update_map_loc('bob', '40.444885', '-79.94463')
+    #instance.gmutex.release()
     map_loc_str = instance.map_loc
     marker_list = []
     strs = map_loc_str.split(":")
