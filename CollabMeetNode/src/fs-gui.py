@@ -890,7 +890,7 @@ if __name__ == "__main__":
 		else:
 			CAMERA = None
 	elif mode == 'c':
-        time.sleep(10)
+		time.sleep(6)
 		ip = sys.argv[2]
 		port = int(sys.argv[3])
 		if len(sys.argv) >= 5:
