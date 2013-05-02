@@ -99,6 +99,9 @@ def gtk_init_ui():
   mi = wTree.get_object("meetinginfo")
   color = gtk.gdk.color_parse("blue")  #'#234fdb')
   mi.modify_bg(gtk.STATE_NORMAL, color)
+  l2 = wTree.get_object("label2")
+  l2.modify_fg(gtk.STATE_NORMAL, color)
+
   #calendar = gtk.Calendar()
 
   instance.gmutex.acquire()

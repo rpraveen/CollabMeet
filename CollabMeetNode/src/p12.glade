@@ -159,12 +159,39 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCalendar" id="calendar1">
+          <object class="GtkVBox" id="vbox4">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="year">2013</property>
-            <property name="month">5</property>
-            <property name="day">2</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Master</property>
+                <attributes>
+                  <attribute name="foreground" value="#1655ea8158dc"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCalendar" id="calendar1">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="extension_events">cursor</property>
+                <property name="year">2013</property>
+                <property name="month">5</property>
+                <property name="day">2</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="left_attach">1</property>
