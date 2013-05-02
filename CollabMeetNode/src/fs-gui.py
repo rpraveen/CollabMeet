@@ -37,6 +37,8 @@ except:
 
 from fs_gui_net import  FsUIClient, FsUIListener, FsUIServer
 
+print "Created!!!"
+
 CAMERA=True
 
 AUDIO=True
