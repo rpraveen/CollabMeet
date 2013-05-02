@@ -107,6 +107,7 @@ def gtk_init_ui():
   for i in range(1, len(strs)):
     chat = strs[i].split("#")
     append_chat_msg(chat[0], chat[1], chat[2])
-  
+ 
+
   window.show()
   gtk.main()
