@@ -34,9 +34,6 @@ def received_text_msg(sender, text):
   gui.append_chat_msg(time.strftime("%H-%M-%S"), sender, text)
   pass
 
-def highlight_master():
-  pass
-
 def update_map_loc(name, latitude, longitude):
   strs = instance.map_loc.split(":")
   new_map_loc = "map"

@@ -77,8 +77,17 @@ def update_meeting_info():
     msg += chr(65 + config.get_node_index(node.name)) + ") " + node.name + "\n" 
   buf.set_text(msg)
 
+
+def change_master_label():
+  if instance.gui_inited == False:
+    return
+  global wTree
+  l2 = wTree.get_object("label2")
+  l2.modify_fg(gtk.STATE_NORMAL, color)
+
+
 def gtk_init_ui():
-  gladefile="p11.glade"
+  gladefile="p12.glade"
 #  wname="markui"
   global wTree
 #  wTree=gtk.glade.XML(gladefile,wname)
@@ -100,7 +109,7 @@ def gtk_init_ui():
   color = gtk.gdk.color_parse("blue")  #'#234fdb')
   mi.modify_bg(gtk.STATE_NORMAL, color)
   l2 = wTree.get_object("label2")
-  l2.modify_fg(gtk.STATE_NORMAL, color)
+  l2.modify_base(gtk.STATE_NORMAL, color)
 
   #calendar = gtk.Calendar()
 

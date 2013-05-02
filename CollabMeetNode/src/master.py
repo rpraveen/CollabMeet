@@ -6,6 +6,7 @@ import network
 import urllib2
 import config
 import api
+import gui
 import video
 
 class MasterThread(threading.Thread):
@@ -74,7 +75,7 @@ def init_master():
   except:
     print "Error! Cannot connect to bootstrap server!"
     sys.exit(1)
-  api.highlight_master()
+  gui.change_master_label()
   if instance.child_pid != 0:
     video.stop_client()
   instance.curr_video_name = instance.name
