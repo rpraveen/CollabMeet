@@ -94,7 +94,12 @@ def gtk_init_ui():
   global input_text
   input_text = wTree.get_object("entry1")
   global chattextview
-  chattextview = wTree.get_object("chattextview");
+  chattextview = wTree.get_object("chattextview")
+
+  mi = wTree.get_object("meetinginfo")
+  color = gtk.gdk.color_parse("blue")  #'#234fdb')
+  mi.modify_bg(gtk.STATE_NORMAL, color)
+  #calendar = gtk.Calendar()
 
   instance.gmutex.acquire()
   instance.gui_inited = True
